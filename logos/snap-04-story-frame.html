@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>فزعة | Story Frame</title>
+    <meta name="description" content="إخراج جاهز لصفحة ستوري سناب بإطار قوي وشعار واضح وزر طلب مباشر." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --gold: #d8ab3c;
+        --gold-deep: #b78717;
+        --paper: #ffffff;
+        --ink: #1f1a10;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Cairo", system-ui, sans-serif;
+        background: #ffffff;
+        color: var(--ink);
+      }
+      .story {
+        min-height: 100vh;
+        padding: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .frame {
+        width: min(100%, 430px);
+        min-height: min(92vh, 860px);
+        padding: 18px;
+        border-radius: 36px;
+        border: 1px solid rgba(216, 171, 60, .28);
+        background:
+          radial-gradient(circle at top, rgba(216, 171, 60, .14), transparent 26%),
+          linear-gradient(180deg, #fffdf7, #fff9eb);
+        box-shadow: 0 24px 50px rgba(126, 95, 27, .14);
+        position: relative;
+        overflow: hidden;
+      }
+      .frame::before {
+        content: "";
+        position: absolute;
+        inset: 18px;
+        border-radius: 28px;
+        border: 1px solid rgba(216, 171, 60, .34);
+      }
+      .logo {
+        position: absolute;
+        top: 34px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 220px;
+        filter: drop-shadow(0 16px 26px rgba(184, 135, 23, .18));
+      }
+      .panel {
+        position: absolute;
+        left: 24px;
+        right: 24px;
+        top: 31%;
+        padding: 28px 18px;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, .92);
+        border: 1px solid rgba(216, 171, 60, .42);
+        text-align: center;
+        box-shadow: 0 18px 40px rgba(126, 95, 27, .1);
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 8vw, 3rem);
+        line-height: 1.1;
+        color: var(--gold-deep);
+        font-weight: 900;
+      }
+      p {
+        margin: 14px 0 0;
+        color: var(--gold);
+        font-size: clamp(1.2rem, 4.8vw, 1.6rem);
+        font-weight: 800;
+        line-height: 1.5;
+      }
+      .cta {
+        position: absolute;
+        left: 34px;
+        right: 34px;
+        bottom: 78px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 62px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, #edd58f, #c89621);
+        color: #221a06;
+        text-decoration: none;
+        font-size: 1.15rem;
+        font-weight: 900;
+        box-shadow: 0 18px 34px rgba(184, 136, 28, .28);
+      }
+      @media (max-width: 480px) {
+        .logo { width: 184px; top: 28px; }
+        .panel { top: 28%; padding: 24px 14px; }
+        .cta { left: 24px; right: 24px; bottom: 56px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="story">
+      <section class="frame">
+        <img class="logo" src="2.png" alt="شعار فزعة" />
+        <div class="panel">
+          <h1>اطلب بطاقتك الان</h1>
+          <p>لا تدفع اكثر من لازم</p>
+        </div>
+        <a class="cta" href="../order.html">أطلب ألان</a>
+      </section>
+    </main>
+  </body>
+</html>

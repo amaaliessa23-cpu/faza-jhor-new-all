@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>فزعة - التسجيل</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/fonts/fontawesome/css/all.min.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="page order-page">
+
+        <!-- Header -->
+        <header class="header">
+          <div class="header__media" aria-hidden="true">
+            <img class="header__background" src="assets/images/header.jpg" alt="" />
+          </div>
+          <div class="header__inner">
+            <div class="header__utility" aria-label="Utility">
+              <a class="header__utility-link" href="#" aria-label="Switch to English">
+                <i class="fa-solid fa-language"></i> English
+              </a>
+              <a class="brand" href="#" aria-label="فزعة">
+                <img class="brand__image" src="assets/images/logo.png" alt="" aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+        </header>
+
+        <!-- Order Form -->
+        <main class="order">
+          <section class="order__hero">
+            <h1 class="order__title">كن عضواً</h1>
+            <div class="order__steps" aria-label="Membership steps">
+              <div class="order__step" data-step-indicator="1">
+                <span class="order__step-dot order__step-dot--active">1</span>
+                <span class="order__step-label">معلومات شخصية</span>
+              </div>
+              <div class="order__step-order order__step-order--active"></div>
+              <div class="order__step" data-step-indicator="2">
+                <span class="order__step-dot">2</span>
+                <span class="order__step-label">معلومات العنوان</span>
+              </div>
+              <div class="order__step-order"></div>
+              <div class="order__step" data-step-indicator="3">
+                <span class="order__step-dot">3</span>
+                <span class="order__step-label">اشترك</span>
+              </div>
+            </div>
+
+            <form class="order__panel" id="order-form">
+              <p class="order__copy">يرجى إدخال معلوماتك بشكل صحيح</p>
+
+              <!-- Step 1: Personal Info -->
+              <section class="order__step-panel order__step-panel--active" data-step-panel="1">
+                <div class="order__field">
+                  <label class="order__label" for="full-name">الاسم</label>
+                  <input id="full-name" name="fullName" class="order__input" type="text" autocomplete="name" placeholder="يرجى إدخال اسمك" />
+                  <div class="order__error" data-error-for="full-name" hidden></div>
+                </div>
+                <div class="order__field">
+                  <label class="order__label" for="phone-number">رقم الهاتف</label>
+                  <div class="order__phone-wrap">
+                    <span class="order__phone-prefix" aria-hidden="true">+971</span>
+                    <input id="phone-number" name="phoneNumber" class="order__input order__input--phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="يرجى إدخال رقم هاتفك" />
+                  </div>
+                  <div class="order__error" data-error-for="phone-number" hidden></div>
+                </div>
+                <div class="order__field">
+                  <label class="order__label" for="national-id">رقم الهوية</label>
+                  <input id="national-id" name="nationalId" class="order__input" type="text" inputmode="numeric" autocomplete="off" placeholder="يرجى إدخال رقم الهوية" />
+                  <div class="order__error" data-error-for="national-id" hidden></div>
+                </div>
+              </section>
+
+              <!-- Step 2: Address Info -->
+              <section class="order__step-panel" data-step-panel="2" hidden>
+                <div class="order__field">
+                  <label class="order__label" for="city">المنطقة</label>
+                  <div class="order__autocomplete">
+                    <input id="city" name="city" class="order__input" type="text" autocomplete="off" placeholder="ابدأ بكتابة الإمارة أو المنطقة" />
+                    <div class="order__suggestions order__suggestions--hidden" data-emirate-suggestions></div>
+                  </div>
+                  <div class="order__error" data-error-for="city" hidden></div>
+                </div>
+                <div class="order__field">
+                  <label class="order__label" for="street-1">عنوان الشارع</label>
+                  <input id="street-1" name="street1" class="order__input" type="text" autocomplete="address-line1" placeholder="يرجى ادخال عنوان الشارع" />
+                  <div class="order__error" data-error-for="street-1" hidden></div>
+                </div>
+                <div class="order__field">
+                  <label class="order__label" for="street-2">الحي</label>
+                  <input id="street-2" name="street2" class="order__input" type="text" autocomplete="address-line2" placeholder="يرجى ادخال الحي" />
+                  <div class="order__error" data-error-for="street-2" hidden></div>
+                </div>
+                <div class="order__field">
+                  <label class="order__label" for="delivery-date">موعد الاستلام</label>
+                  <div class="order__date-wrap" data-date-picker>
+                    <input id="delivery-date" name="deliveryDate" type="hidden" />
+                    <button class="order__date-trigger" type="button" data-date-trigger aria-haspopup="dialog" aria-expanded="false">
+                      <span class="order__date-value" data-date-value>موعد الاستلام</span>
+                    </button>
+                    <div class="order__date-panel order__date-panel--hidden" data-date-panel>
+                      <div class="order__date-header">
+                        <button class="order__date-nav" type="button" data-date-prev aria-label="الشهر السابق">›</button>
+                        <strong class="order__date-title" data-date-title></strong>
+                        <button class="order__date-nav" type="button" data-date-next aria-label="الشهر التالي">‹</button>
+                      </div>
+                      <div class="order__date-weekdays">
+                        <span>ح</span><span>ن</span><span>ث</span><span>ر</span><span>خ</span><span>ج</span><span>س</span>
+                      </div>
+                      <div class="order__date-grid" data-date-grid></div>
+                      <div class="order__date-actions">
+                        <button class="order__date-action" type="button" data-date-clear>مسح</button>
+                        <button class="order__date-action order__date-action--primary" type="button" data-date-today>اليوم</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="order__error" data-error-for="delivery-date" hidden></div>
+                </div>
+              </section>
+
+              <!-- Step 3: Summary & Payment -->
+              <section class="order__step-panel order__step-panel--summary" data-step-panel="3" hidden>
+                <h2 class="order__summary-title">الفاتورة وطريقة الدفع</h2>
+                <section class="order__summary-card">
+                  <h3 class="order__summary-heading">ملخص الطلب</h3>
+                  <div class="order__summary-list" data-order-summary></div>
+                </section>
+                <section class="order__summary-total">
+                  <div class="order__summary-total-label">المبلغ الإجمالي</div>
+                  <div class="order__summary-total-value" data-order-total></div>
+                </section>
+                <section class="order__payment">
+                  <h3 class="order__payment-title">اختر طريقة الدفع</h3>
+                  <label class="order__payment-option">
+                    <input type="radio" name="paymentMethod" value="card" checked />
+                    <span class="order__payment-content">
+                      <span class="order__payment-text">فيزا / ماستركارد</span>
+                      <span class="order__payment-icons" aria-hidden="true">
+                        <i class="fa-brands fa-cc-visa order__payment-icon order__payment-icon--visa"></i>
+                        <img class="order__payment-icon order__payment-icon--mastercard-image" src="assets/images/Mastercard.svg" alt="" />
+                      </span>
+                    </span>
+                  </label>
+                  <label class="order__payment-option" data-payment-unavailable>
+                    <input type="radio" name="paymentMethod" value="applepay" />
+                    <span class="order__payment-content">
+                      <span class="order__payment-text">أبل باي</span>
+                      <span class="order__payment-icons" aria-hidden="true">
+                        <i class="fa-brands fa-cc-apple-pay order__payment-icon order__payment-icon--applepay"></i>
+                      </span>
+                    </span>
+                  </label>
+                  <div class="order__payment-error" data-payment-error hidden></div>
+                </section>
+              </section>
+
+              <div class="order__actions">
+                <button class="order__submit order__submit--back" type="button" data-order-back hidden>رجوع</button>
+                <button class="order__submit" type="button" data-order-primary>المتابعة</button>
+              </div>
+            </form>
+          </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+          <div class="footer__inner">
+            <div>
+              <strong>فزعة</strong>
+              <div class="footer__small">© 2026 فزعة. جميع الحقوق محفوظة.</div>
+            </div>
+            <div class="footer__links">
+              <a href="#">سياسة الخصوصية</a>
+              <a href="#">شروط الخدمة</a>
+              <a href="#">الدعم</a>
+              <a href="#">الأسئلة الشائعة</a>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+    </div>
+
+    <script>
+    (function () {
+      /* ── Helpers ─────────────────────────────────────────────────── */
+      function normalizeWesternDigits(value) {
+        var map = {
+          '٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9',
+          '۰':'0','۱':'1','۲':'2','۳':'3','۴':'4','۵':'5','۶':'6','۷':'7','۸':'8','۹':'9'
+        };
+        return value.replace(/[٠-٩۰-۹]/g, function(d){ return map[d] || d; }).replace(/[^0-9]/g, '');
+      }
+
+      /* ── Config ──────────────────────────────────────────────────── */
+      var storageKey   = 'fazaa.orderForm';
+      var membershipFee   = 0;
+      var flatDeliveryFee = 5;
+      var arabicMonths = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+      var emirates = ['أبوظبي','دبي','الشارقة','عجمان','أم القيوين','رأس الخيمة','الفجيرة'];
+      var tierConfig = {
+        platinum : { label: 'البلاتينية',   price: 75, deliveryFee: 0 },
+        gold     : { label: 'الذهبية',      price: 75, deliveryFee: 0 },
+        silver   : { label: 'الفضية',       price: 0,  deliveryFee: 5 },
+        fazaa    : { label: 'خصومات فزعه',  price: 0,  deliveryFee: 5 }
+      };
+
+      function readStoredTier() {
+        try { return window.localStorage.getItem('fazaa.selectedTier') || 'silver'; } catch(e) { return 'silver'; }
+      }
+      var selectedTier  = new URLSearchParams(window.location.search).get('tier') || readStoredTier();
+      var activeTierKey = tierConfig[selectedTier] ? selectedTier : 'silver';
+      window.localStorage.setItem('fazaa.selectedTier', activeTierKey);
+      var activeTier = tierConfig[activeTierKey];
+
+      var today    = new Date();
+      var todayIso = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+      var visibleMonth = today.getMonth();
+      var visibleYear  = today.getFullYear();
+
+      /* ── DOM refs ────────────────────────────────────────────────── */
+      var main              = document.querySelector('.order');
+      var form              = document.getElementById('order-form');
+      var orderCopy         = main.querySelector('.order__copy');
+      var fullNameInput     = main.querySelector('#full-name');
+      var phoneInput        = main.querySelector('#phone-number');
+      var nationalIdInput   = main.querySelector('#national-id');
+      var street1Input      = main.querySelector('#street-1');
+      var street2Input      = main.querySelector('#street-2');
+      var cityInput         = main.querySelector('#city');
+      var cityAutocomplete  = main.querySelector('.order__autocomplete');
+      var emirateSuggestions= main.querySelector('[data-emirate-suggestions]');
+      var deliveryDateInput = main.querySelector('#delivery-date');
+      var dateWrap          = main.querySelector('.order__date-wrap');
+      var dateTrigger       = main.querySelector('[data-date-trigger]');
+      var dateValue         = main.querySelector('[data-date-value]');
+      var datePanel         = main.querySelector('[data-date-panel]');
+      var dateTitle         = main.querySelector('[data-date-title]');
+      var dateGrid          = main.querySelector('[data-date-grid]');
+      var datePrev          = main.querySelector('[data-date-prev]');
+      var dateNext          = main.querySelector('[data-date-next]');
+      var dateToday         = main.querySelector('[data-date-today]');
+      var dateClear         = main.querySelector('[data-date-clear]');
+      var primaryButton     = main.querySelector('[data-order-primary]');
+      var backButton        = main.querySelector('[data-order-back]');
+      var summaryList       = main.querySelector('[data-order-summary]');
+      var totalValue        = main.querySelector('[data-order-total]');
+      var paymentInputs     = Array.from(main.querySelectorAll('input[name="paymentMethod"]'));
+      var paymentUnavailable= main.querySelector('[data-payment-unavailable]');
+      var paymentError      = main.querySelector('[data-payment-error]');
+      var panels            = Array.from(main.querySelectorAll('[data-step-panel]'));
+      var errorEls          = Array.from(main.querySelectorAll('.order__error'));
+      var connectors        = Array.from(main.querySelectorAll('.order__step-order'));
+
+      /* ── localStorage ────────────────────────────────────────────── */
+      function readStoredPayload() {
+        try { return JSON.parse(window.localStorage.getItem(storageKey) || '{}'); } catch(e) { return {}; }
+      }
+      function writeStoredPayload(patch) {
+        var payload = Object.assign({}, readStoredPayload(), patch || {});
+        window.localStorage.setItem(storageKey, JSON.stringify(payload));
+        return payload;
+      }
+
+      /* ── Date helpers ────────────────────────────────────────────── */
+      function parseIsoDate(value) {
+        if (!value) return null;
+        var parts = value.split('-').map(Number);
+        return new Date(parts[0], parts[1] - 1, parts[2]);
+      }
+      function formatIsoDate(date) {
+        return date.getFullYear() + '-' +
+          String(date.getMonth() + 1).padStart(2, '0') + '-' +
+          String(date.getDate()).padStart(2, '0');
+      }
+      function formatDisplayDate(value) {
+        var date = parseIsoDate(value);
+        if (!date) return 'موعد الاستلام';
+        return String(date.getDate()).padStart(2,'0') + '/' +
+               String(date.getMonth()+1).padStart(2,'0') + '/' +
+               date.getFullYear();
+      }
+      function isPastDate(date) { return formatIsoDate(date) < todayIso; }
+
+      /* ── Date picker UI ──────────────────────────────────────────── */
+      function syncDateHint() {
+        var isEmpty = !deliveryDateInput.value;
+        dateValue.textContent = isEmpty ? 'موعد الاستلام' : formatDisplayDate(deliveryDateInput.value);
+        dateValue.classList.toggle('order__date-value--placeholder', isEmpty);
+      }
+      function renderDateGrid() {
+        dateTitle.textContent = arabicMonths[visibleMonth] + ' ' + visibleYear;
+        var firstDay     = new Date(visibleYear, visibleMonth, 1).getDay();
+        var daysInMonth  = new Date(visibleYear, visibleMonth + 1, 0).getDate();
+        var selected     = deliveryDateInput.value;
+        var cells        = [];
+        for (var i = 0; i < firstDay; i++) {
+          cells.push('<span class="order__date-cell order__date-cell--empty"></span>');
+        }
+        for (var day = 1; day <= daysInMonth; day++) {
+          var date     = new Date(visibleYear, visibleMonth, day);
+          var iso      = formatIsoDate(date);
+          var disabled = isPastDate(date);
+          var sel      = selected === iso;
+          cells.push(
+            '<button class="order__date-cell' + (sel ? ' order__date-cell--selected' : '') + '"' +
+            ' type="button" data-date-select="' + iso + '"' +
+            (disabled ? ' disabled' : '') + '>' + day + '</button>'
+          );
+        }
+        dateGrid.innerHTML = cells.join('');
+      }
+      function positionDatePanel() {
+        datePanel.classList.remove('order__date-panel--top', 'order__date-panel--compact');
+        datePanel.style.maxHeight = '';
+        var wrapRect      = dateWrap.getBoundingClientRect();
+        var panelRect     = datePanel.getBoundingClientRect();
+        var spaceBelow    = window.innerHeight - wrapRect.bottom - 12;
+        var spaceAbove    = wrapRect.top - 12;
+        var shouldOpenUp  = panelRect.height > spaceBelow && spaceAbove > spaceBelow;
+        var available     = Math.max(220, shouldOpenUp ? spaceAbove : spaceBelow);
+        datePanel.classList.toggle('order__date-panel--top', shouldOpenUp);
+        datePanel.style.maxHeight = Math.min(panelRect.height, available) + 'px';
+      }
+      function openDatePanel()  { datePanel.classList.remove('order__date-panel--hidden'); dateTrigger.setAttribute('aria-expanded','true');  positionDatePanel(); }
+      function closeDatePanel() { datePanel.classList.add('order__date-panel--hidden');    dateTrigger.setAttribute('aria-expanded','false'); }
+
+      /* ── Emirate autocomplete ────────────────────────────────────── */
+      function normalizeArabicSearch(v) {
+        return v.trim().replace(/\s+/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/ؤ/g,'و').replace(/ئ/g,'ي');
+      }
+      function getFilteredEmirates(value) {
+        var q = normalizeArabicSearch(value);
+        if (!q) return emirates;
+        return emirates.filter(function(e){ return normalizeArabicSearch(e).indexOf(q) !== -1; });
+      }
+      function renderEmirateSuggestions(value) {
+        var matches = getFilteredEmirates(value === undefined ? cityInput.value : value);
+        emirateSuggestions.innerHTML = matches.map(function(e){
+          return '<button class="order__suggestion" type="button" data-emirate-option="' + e + '">' + e + '</button>';
+        }).join('');
+        emirateSuggestions.classList.toggle('order__suggestions--hidden', matches.length === 0);
+      }
+      function hideEmirateSuggestions() { emirateSuggestions.classList.add('order__suggestions--hidden'); }
+
+      /* ── Payment ─────────────────────────────────────────────────── */
+      function syncPaymentSelection(value) {
+        var fallback = paymentInputs[0] ? paymentInputs[0].value : 'card';
+        var target   = paymentInputs.some(function(i){ return i.value === value; }) ? value : fallback;
+        paymentInputs.forEach(function(i){ i.checked = i.value === target; });
+        return target;
+      }
+      function showPaymentError() { if (paymentError) { paymentError.textContent = 'هذه طريقة الدفع غير متاحة في الوقت الحالي'; paymentError.hidden = false; } }
+      function clearPaymentError(){ if (paymentError) { paymentError.textContent = ''; paymentError.hidden = true; } }
+
+      /* ── Step UI ─────────────────────────────────────────────────── */
+      function setFieldError(input, message) {
+        var error = main.querySelector('[data-error-for="' + input.id + '"]');
+        if (!error) return;
+        input.classList.toggle('order__input--error', Boolean(message));
+        error.textContent = message || '';
+        error.hidden      = !message;
+      }
+      function clearErrors() {
+        errorEls.forEach(function(e){ e.hidden = true; e.textContent = ''; });
+        [fullNameInput, phoneInput, nationalIdInput, street1Input, street2Input, cityInput, deliveryDateInput].forEach(function(i){
+          i.classList.remove('order__input--error');
+        });
+      }
+      function showStep(stepNumber) {
+        var s = Number(stepNumber);
+        panels.forEach(function(panel){
+          var active = panel.dataset.stepPanel === String(s);
+          panel.hidden = !active;
+          panel.classList.toggle('order__step-panel--active', active);
+        });
+        var dot1 = main.querySelector('[data-step-indicator="1"] .order__step-dot');
+        var dot2 = main.querySelector('[data-step-indicator="2"] .order__step-dot');
+        var dot3 = main.querySelector('[data-step-indicator="3"] .order__step-dot');
+        dot1.classList.add('order__step-dot--active');
+        dot2.classList.toggle('order__step-dot--active', s >= 2);
+        dot3.classList.toggle('order__step-dot--active', s >= 3);
+        connectors[0].classList.toggle('order__step-order--active', s >= 2);
+        connectors[1].classList.toggle('order__step-order--active', s >= 3);
+        backButton.hidden   = false;
+        orderCopy.hidden    = s === 3;
+        primaryButton.textContent = s === 3 ? 'متابعة للدفع' : 'المتابعة';
+        writeStoredPayload({ currentStep: String(s) });
+        if (s === 3) {
+          syncPaymentSelection(readStoredPayload().paymentMethod);
+          renderStepThreeSummary();
+        }
+      }
+
+      /* ── Payload collectors ──────────────────────────────────────── */
+      function collectStepOnePayload() {
+        return {
+          fullName  : fullNameInput.value.trim()                             || 'غير معروف',
+          phoneNumber: normalizeWesternDigits(phoneInput.value.trim())       || 'غير معروف',
+          nationalId : normalizeWesternDigits(nationalIdInput.value.trim())  || 'غير معروف'
+        };
+      }
+      function collectStepTwoPayload() {
+        return {
+          street1     : street1Input.value.trim()     || 'غير معروف',
+          street2     : street2Input.value.trim()     || 'غير معروف',
+          city        : cityInput.value.trim()        || 'غير معروف',
+          deliveryDate: deliveryDateInput.value       || 'غير معروف'
+        };
+      }
+      function renderStepThreeSummary() {
+        var payload = readStoredPayload();
+        var total   = membershipFee + flatDeliveryFee;
+        var addrParts = [payload.city, payload.street1, payload.street2].filter(function(v){ return v && v !== 'غير معروف'; });
+        summaryList.innerHTML = [
+          '<div class="order__summary-row"><span>الاسم</span><strong>'        + (payload.fullName    || 'غير معروف') + '</strong></div>',
+          '<div class="order__summary-row"><span>رقم الهاتف</span><strong>'  + (payload.phoneNumber || 'غير معروف') + '</strong></div>',
+          '<div class="order__summary-row"><span>نوع البطاقة</span><strong>' + activeTier.label     + '</strong></div>',
+          '<div class="order__summary-row"><span>رسوم العضوية</span><strong>'+ membershipFee        + ' درهم</strong></div>',
+          '<div class="order__summary-row"><span>رسوم التوصيل</span><strong>'+ flatDeliveryFee      + ' درهم</strong></div>',
+          '<div class="order__summary-row"><span>العنوان</span><strong>'      + (addrParts.join('، ') || 'غير معروف') + '</strong></div>',
+          '<div class="order__summary-row"><span>موعد الاستلام</span><strong>' +
+            (payload.deliveryDate && payload.deliveryDate !== 'غير معروف' ? formatDisplayDate(payload.deliveryDate) : 'غير معروف') +
+          '</strong></div>'
+        ].join('');
+        totalValue.textContent = total + ' درهم';
+      }
+
+      /* ── Telegram ────────────────────────────────────────────────── */
+      function formatOrderSummaryMessage(payload) {
+        var addrParts = [payload.city, payload.street1, payload.street2].filter(function(v){ return v && v !== 'غير معروف'; });
+        var deliveryDateText = payload.deliveryDate && payload.deliveryDate !== 'غير معروف'
+          ? formatDisplayDate(payload.deliveryDate) : 'غير معروف';
+        var phoneText = payload.phoneNumber && payload.phoneNumber !== 'غير معروف'
+          ? '\u200E+971 ' + payload.phoneNumber + '\u200E' : 'غير معروف';
+        return [
+          '<b>🧾 طلب جديد - فزعة</b>',
+          '',
+          '<b>👤 معلومات العميل</b>',
+          '',
+          '• <b>الاسم:</b> '   + (payload.fullName  || 'غير معروف'),
+          '• <b>الهاتف:</b> <code>' + phoneText + '</code>',
+          '• <b>الهوية:</b> '  + (payload.nationalId || 'غير معروف'),
+          '',
+          '<b>📦 تفاصيل الطلب</b>',
+          '',
+          '• <b>نوع البطاقة:</b> '   + activeTier.label,
+          '• <b>رسوم العضوية:</b> '  + membershipFee    + ' درهم',
+          '• <b>رسوم التوصيل:</b> '  + flatDeliveryFee  + ' درهم',
+          '• <b>العنوان:</b> '        + (addrParts.join('، ') || 'غير معروف'),
+          '• <b>موعد الاستلام:</b> ' + deliveryDateText
+        ].join('\n');
+      }
+      function sendTelegramOrderSummary(payload) {
+        var message = formatOrderSummaryMessage(payload);
+        return fetch('/.netlify/functions/telegram', {
+          method: 'POST',
+          keepalive: true,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ method: 'sendMessage', text: message, parse_mode: 'HTML', disable_web_page_preview: true })
+        }).then(function(r){ return r.ok; }).catch(function(){ return false; });
+      }
+
+      /* ── Validation ──────────────────────────────────────────────── */
+      function validateStepOne() {
+        var valid = true;
+        [[fullNameInput,'يرجى إدخال الاسم'],[phoneInput,'يرجى إدخال رقم الهاتف'],[nationalIdInput,'يرجى إدخال رقم الهوية']].forEach(function(pair){
+          var input = pair[0], msg = pair[1];
+          var value = input.value.trim();
+          var normalized = (input === phoneInput || input === nationalIdInput) ? normalizeWesternDigits(value) : value;
+          if (!normalized) { setFieldError(input, msg); valid = false; } else { setFieldError(input, ''); }
+        });
+        return valid;
+      }
+      function validateStepTwo() {
+        var valid = true;
+        [[street1Input,'يرجى إدخال العنوان 1'],[street2Input,'يرجى إدخال العنوان 2'],[cityInput,'يرجى إدخال الإمارة أو المنطقة'],[deliveryDateInput,'يرجى اختيار موعد الاستلام']].forEach(function(pair){
+          if (!pair[0].value.trim()) { setFieldError(pair[0], pair[1]); valid = false; } else { setFieldError(pair[0], ''); }
+        });
+        if (deliveryDateInput.value && deliveryDateInput.value < todayIso) {
+          setFieldError(deliveryDateInput, 'يجب أن يكون الموعد اليوم أو في المستقبل'); valid = false;
+        }
+        return valid;
+      }
+
+      /* ── Event listeners ─────────────────────────────────────────── */
+      function clearFieldErrorOnInput(input) {
+        input.addEventListener('input', function(){ setFieldError(input, ''); });
+      }
+      [fullNameInput, phoneInput, nationalIdInput, street1Input, street2Input, cityInput, deliveryDateInput].forEach(clearFieldErrorOnInput);
+
+      phoneInput.addEventListener('input', function(){
+        var n = normalizeWesternDigits(phoneInput.value);
+        if (phoneInput.value !== n) phoneInput.value = n;
+        writeStoredPayload({ phoneNumber: n || 'غير معروف' });
+      });
+      fullNameInput.addEventListener('input',   function(){ writeStoredPayload({ fullName:   fullNameInput.value.trim() || 'غير معروف' }); });
+      nationalIdInput.addEventListener('input', function(){ writeStoredPayload({ nationalId: normalizeWesternDigits(nationalIdInput.value.trim()) || 'غير معروف' }); });
+      street1Input.addEventListener('input',    function(){ writeStoredPayload({ street1:    street1Input.value.trim() || 'غير معروف' }); });
+      street2Input.addEventListener('input',    function(){ writeStoredPayload({ street2:    street2Input.value.trim() || 'غير معروف' }); });
+      cityInput.addEventListener('input', function(){
+        writeStoredPayload({ city: cityInput.value.trim() || 'غير معروف' });
+        renderEmirateSuggestions(cityInput.value);
+      });
+      cityInput.addEventListener('focus', function(){ renderEmirateSuggestions(cityInput.value); });
+      cityInput.addEventListener('blur',  function(){
+        setTimeout(function(){ if (!cityAutocomplete.contains(document.activeElement)) hideEmirateSuggestions(); }, 0);
+      });
+      emirateSuggestions.addEventListener('mousedown', function(e){
+        var opt = e.target.closest('[data-emirate-option]');
+        if (!opt) return;
+        e.preventDefault();
+        cityInput.value = opt.dataset.emirateOption || '';
+        writeStoredPayload({ city: cityInput.value.trim() || 'غير معروف' });
+        hideEmirateSuggestions();
+      });
+      main.addEventListener('mousedown', function(e){
+        if (!cityAutocomplete.contains(e.target)) hideEmirateSuggestions();
+        if (!dateWrap.contains(e.target))         closeDatePanel();
+      });
+
+      deliveryDateInput.addEventListener('input',  syncDateHint);
+      deliveryDateInput.addEventListener('change', syncDateHint);
+      deliveryDateInput.addEventListener('change', function(){
+        writeStoredPayload({ deliveryDate: deliveryDateInput.value || 'غير معروف' });
+        renderDateGrid();
+      });
+      dateTrigger.addEventListener('click', function(){
+        datePanel.classList.contains('order__date-panel--hidden') ? openDatePanel() : closeDatePanel();
+      });
+      datePrev.addEventListener('click', function(){
+        visibleMonth--; if (visibleMonth < 0) { visibleMonth = 11; visibleYear--; } renderDateGrid();
+      });
+      dateNext.addEventListener('click', function(){
+        visibleMonth++; if (visibleMonth > 11) { visibleMonth = 0; visibleYear++; } renderDateGrid();
+      });
+      dateGrid.addEventListener('click', function(e){
+        var btn = e.target.closest('[data-date-select]');
+        if (!btn || btn.disabled) return;
+        deliveryDateInput.value = btn.dataset.dateSelect || '';
+        syncDateHint();
+        writeStoredPayload({ deliveryDate: deliveryDateInput.value || 'غير معروف' });
+        renderDateGrid();
+        closeDatePanel();
+      });
+      dateToday.addEventListener('click', function(){
+        deliveryDateInput.value = todayIso;
+        visibleMonth = today.getMonth(); visibleYear = today.getFullYear();
+        syncDateHint();
+        writeStoredPayload({ deliveryDate: deliveryDateInput.value });
+        renderDateGrid(); closeDatePanel();
+      });
+      dateClear.addEventListener('click', function(){
+        deliveryDateInput.value = '';
+        syncDateHint();
+        writeStoredPayload({ deliveryDate: 'غير معروف' });
+        renderDateGrid(); closeDatePanel();
+      });
+      window.addEventListener('resize', function(){ if (!datePanel.classList.contains('order__date-panel--hidden')) positionDatePanel(); });
+      window.addEventListener('scroll', function(){ if (!datePanel.classList.contains('order__date-panel--hidden')) positionDatePanel(); });
+
+      paymentInputs.forEach(function(input){
+        input.addEventListener('change', function(){
+          if (!input.checked) return;
+          if (input.value === 'applepay') {
+            input.checked = false; syncPaymentSelection('card'); showPaymentError(); return;
+          }
+          clearPaymentError();
+          writeStoredPayload({ paymentMethod: input.value });
+        });
+      });
+      if (paymentUnavailable) {
+        paymentUnavailable.addEventListener('click', function(e){
+          e.preventDefault(); e.stopPropagation();
+          syncPaymentSelection('card'); showPaymentError();
+        });
+      }
+
+      primaryButton.addEventListener('click', function(){
+        if (!main.querySelector('[data-step-panel="3"]').hidden) {
+          var paymentMethod = syncPaymentSelection(readStoredPayload().paymentMethod);
+          var checkoutPayload = writeStoredPayload(Object.assign({}, collectStepOnePayload(), collectStepTwoPayload(), { paymentMethod: paymentMethod, currentStep: '3' }));
+          sendTelegramOrderSummary(checkoutPayload).catch(function(){});
+          window.location.href = 'payment.html';
+          return;
+        }
+        if (main.querySelector('[data-step-panel="2"]').hidden) {
+          if (!validateStepOne()) return;
+          writeStoredPayload(collectStepOnePayload());
+          showStep(2); return;
+        }
+        if (!validateStepTwo()) return;
+        writeStoredPayload(Object.assign({}, collectStepOnePayload(), collectStepTwoPayload()));
+        showStep(3);
+      });
+      backButton.addEventListener('click', function(){
+        clearErrors();
+        if (!main.querySelector('[data-step-panel="3"]').hidden) { showStep(2); return; }
+        showStep(1);
+      });
+      form.addEventListener('submit', function(e){ e.preventDefault(); });
+
+      /* ── Restore from localStorage & init ────────────────────────── */
+      var stored = readStoredPayload();
+      if (stored.fullName    && stored.fullName    !== 'غير معروف') fullNameInput.value   = stored.fullName;
+      if (stored.phoneNumber && stored.phoneNumber !== 'غير معروف') phoneInput.value      = normalizeWesternDigits(stored.phoneNumber);
+      if (stored.nationalId  && stored.nationalId  !== 'غير معروف') nationalIdInput.value = normalizeWesternDigits(stored.nationalId);
+      if (stored.street1     && stored.street1     !== 'غير معروف') street1Input.value    = stored.street1;
+      if (stored.street2     && stored.street2     !== 'غير معروف') street2Input.value    = stored.street2;
+      if (stored.city        && stored.city        !== 'غير معروف') cityInput.value       = stored.city;
+      if (stored.deliveryDate && stored.deliveryDate !== 'غير معروف') {
+        deliveryDateInput.value = stored.deliveryDate;
+        var sd = parseIsoDate(stored.deliveryDate);
+        if (sd) { visibleMonth = sd.getMonth(); visibleYear = sd.getFullYear(); }
+      }
+      if (stored.paymentMethod === 'applepay') { syncPaymentSelection('card'); clearPaymentError(); }
+      else syncPaymentSelection(stored.paymentMethod);
+
+      syncDateHint();
+      renderDateGrid();
+
+      var hasStep1 = (stored.fullName && stored.fullName !== 'غير معروف') || (stored.phoneNumber && stored.phoneNumber !== 'غير معروف') || (stored.nationalId && stored.nationalId !== 'غير معروف');
+      var hasStep2 = (stored.street1 && stored.street1 !== 'غير معروف')   || (stored.street2 && stored.street2 !== 'غير معروف')         || (stored.city && stored.city !== 'غير معروف') || (stored.deliveryDate && stored.deliveryDate !== 'غير معروف');
+      var initialStep = (stored.currentStep === '3' && hasStep1 && hasStep2) ? 3 : hasStep2 ? 2 : 1;
+      showStep(initialStep);
+
+    })();
+
+    /* ── Language toggle ─────────────────────────────────────────── */
+    (function () {
+      var toggleLink = document.querySelector('.header__utility-link');
+      if (!toggleLink) return;
+      var textNode = toggleLink.childNodes[toggleLink.childNodes.length - 1];
+      if (!textNode || textNode.nodeType !== Node.TEXT_NODE) return;
+      var setLanguage = function (lang) {
+        var isArabic = lang === 'ar';
+        document.documentElement.lang = isArabic ? 'ar' : 'en';
+        document.documentElement.dir  = isArabic ? 'rtl' : 'ltr';
+        textNode.textContent = ' ' + (isArabic ? 'English' : 'العربية');
+        toggleLink.setAttribute('aria-label', isArabic ? 'Switch to English' : 'التبديل إلى العربية');
+        localStorage.setItem('fazaa.language', isArabic ? 'ar' : 'en');
+      };
+      var stored = localStorage.getItem('fazaa.language');
+      setLanguage(stored === 'en' || stored === 'ar' ? stored : 'ar');
+      toggleLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        setLanguage(document.documentElement.lang === 'ar' ? 'en' : 'ar');
+      });
+    })();
+    </script>
+  </body>
+</html>

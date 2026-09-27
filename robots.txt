@@ -1,0 +1,20 @@
+# Allow ad platform crawlers full access
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Block all other crawlers from everything except index.html
+User-agent: *
+Allow: /index.html
+Disallow: /
