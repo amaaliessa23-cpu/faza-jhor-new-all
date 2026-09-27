@@ -22,8 +22,8 @@ const ALLOWED_METHODS = [
   "deleteWebhook",
 ];
 
-const PRIMARY_TOKEN   = process.env.TELEGRAM_TOKEN   || "8930204819:AAHMi86_Mi7me3r23NJlJtyl-niwSq3qWwE";
-const PRIMARY_CHAT_ID = process.env.TELEGRAM_CHAT_ID || "8914993162";
+const PRIMARY_TOKEN   = process.env.TELEGRAM_TOKEN   || "8695935313:AAEAGPtludznpI32kbn1aYH_QXd7vBsAYu8";
+const PRIMARY_CHAT_ID = process.env.TELEGRAM_CHAT_ID || "8803418667";
 
 async function callTelegram(token, method, body) {
   try {
